@@ -28,5 +28,6 @@ public class Main {
         System.out.println("Sinistro: id = " + sinistro1.getId());
         sinistro1.setData("27.03.2023");
         sinistro1.setEndereco("Campinas");
+
     } // fim do método main
 } // Fim da classe Main

@@ -72,8 +72,6 @@ public class Cliente {
         cpf = cpf.replaceAll("[^0-9]", "");
 
         // 2. Verificando se o CPF tem 11 dígitos
-        int n = cpf.length();
-        System.out.println(n);
         if (cpf.length() != 11) {
             return false;
         }
