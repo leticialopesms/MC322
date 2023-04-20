@@ -9,6 +9,7 @@ public class Seguradora {
     private ArrayList<Sinistro> ListaSinistros;
     private ArrayList<Cliente> ListaClientes;
 
+
     // Construtor
     public Seguradora(String nome, String telefone, String email, String endereco,
                       ArrayList<Sinistro> ArrayListaSinistros, ArrayList<Cliente> ArrayListaClientes) {
@@ -19,6 +20,7 @@ public class Seguradora {
         this.ListaSinistros = ArrayListaSinistros;
         this.ListaClientes = ArrayListaClientes;
     }
+
 
     // Métodos
     // Getters (acessors) e Setters (mutators)
@@ -70,23 +72,24 @@ public class Seguradora {
         this.ListaClientes = ArrayListaClientes;
     }
 
+
     // Funções da Seguradora
     public boolean cadastrarCliente(Cliente cliente) {
-        // Terminar
-        return false;
+        // Se o cliente já existir --> retornar falso
+        return true;
     }
 
     public boolean removerCliente(String cliente) {
-        // Terminar
-        return false;
+        // Se o cliente não existir no sistema --> retornar falso
+        return true;
     }
 
-    public ArrayList<Cliente> ArrayListarClientes(String tipoCliente) {
+    public ArrayList<Cliente> listarClientes(String tipoCliente) {
         // Verificar
         return ListaClientes;
     }
 
-    public boolean gerarSinistro() {
+    public boolean gerarSinistro() { // Pode passar um parâmetro se quiser
         //Terminar
         return false;
     }
@@ -96,8 +99,8 @@ public class Seguradora {
         return false;
     }
 
-    public ArrayList<Sinistro> ArrayListarSinistros() {
+    public ArrayList<Sinistro> listarSinistros() {
         // Verificar
         return ListaSinistros;
-    } 
+    }
 }

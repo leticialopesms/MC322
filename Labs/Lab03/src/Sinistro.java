@@ -10,6 +10,7 @@ public class Sinistro {
     private Veiculo veiculo;
     private Cliente cliente;
 
+
     // Construtor
     public Sinistro(int id, Date data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
         this.id = setId();
@@ -19,6 +20,7 @@ public class Sinistro {
         this.veiculo = veiculo;
         this.cliente = cliente;
     }
+
 
     // Métodos
     // Getters (acessors) e Setters (mutators)
@@ -72,6 +74,7 @@ public class Sinistro {
         this.cliente = cliente;
     }
 
+    
     @Override
     public String toString() {
         return "ID: " + this.id + "\n" +

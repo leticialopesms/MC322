@@ -5,6 +5,7 @@ public class Veiculo {
     private String modelo;
     private int anoFabricacao;
 
+
     // Construtor
     public Veiculo(String placa, String marca, String modelo, int anoFabricacao) {
         this.placa = placa;
@@ -12,6 +13,7 @@ public class Veiculo {
         this.modelo = modelo;
         this.anoFabricacao = anoFabricacao;
     }
+
 
     // Métodos
     // Getters (acessors) e Setters (mutators)
@@ -45,6 +47,15 @@ public class Veiculo {
 
     public void setAnoFabricacao(int anoFabricacao) {
         this.anoFabricacao = anoFabricacao;
+    }
+
+    
+    @Override
+    public String toString() {
+        return "Placa: " + this.placa + "\n" +
+               "Marca: " + this.marca + "\n" +
+               "Modelo: " + this.modelo + "\n" +
+               "Ano de Fbricação: " + this.anoFabricacao + "\n";
     }
     
 }
