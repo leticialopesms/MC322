@@ -33,21 +33,8 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public String getListaVeiculos() {
-        if (listaVeiculos.size() == 0) {
-            return "Não há veículos cadastrados para " + this.nome + ".\n";
-        }
-        String lista = "------------------------------\n" +
-                       "Veículos de " + this.nome + ":\n" +
-                       "------------------------------\n";
-        for (Veiculo v : listaVeiculos) {
-            lista += v.toString() + "----------\n";
-        }
-        return lista;
-    }
-
-    public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
-        this.listaVeiculos = listaVeiculos;
+    public ArrayList<Veiculo> getListaVeiculos(){
+        return this.listaVeiculos;
     }
 
 
@@ -72,6 +59,19 @@ public class Cliente {
                 }
                 listaVeiculos.add(veiculo);
                 return true;
+    }
+
+    public String listarVeiculos() {
+        if (listaVeiculos.size() == 0) {
+            return "Não há veículos cadastrados para " + this.nome + ".\n";
+        }
+        String lista = "------------------------------\n" +
+                       "Veículos de " + this.nome + ":\n" +
+                       "------------------------------\n";
+        for (Veiculo v : listaVeiculos) {
+            lista += v.toString() + "----------\n";
+        }
+        return lista;
     }
 
     @Override
