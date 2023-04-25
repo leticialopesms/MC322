@@ -23,14 +23,17 @@ public class Sinistro {
 
 
     // Métodos
-    // Getters (acessors) e Setters (mutators)
+    // - Getters (acessors) e Setters (mutators)
     public int getId() {
         return id;
     }
 
     public int setId() {
+        /* Gera números aleatórios de 6 dígitos.
+        Intervalo =[100.000 , 999.999].
+        Ainda é necessário resolver o problema de possíveis repetições.*/
         Random num = new Random();
-        int id = num.nextInt(9999999 - 1000000) + 1000000;
+        int id = num.nextInt(899999) + 100000;
         return id;
     }
 
@@ -74,7 +77,9 @@ public class Sinistro {
         this.cliente = cliente;
     }
 
-    
+
+    // - Funções da classe Sinistro
+
     @Override
     public String toString() {
         return "ID: " + this.id + "\n" +
@@ -85,3 +90,7 @@ public class Sinistro {
                "Cliente: " + this.cliente + "\n";
     }
 }
+
+
+
+// Pensar em mudar o setID para relacionar o id com a data de criação do sinistro

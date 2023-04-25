@@ -16,7 +16,7 @@ public class Veiculo {
 
 
     // Métodos
-    // Getters (acessors) e Setters (mutators)
+    // - Getters (acessors) e Setters (mutators)
     public String getPlaca() {
         return placa;
     }
@@ -50,12 +50,14 @@ public class Veiculo {
     }
 
     
+    // - Funções da classe Veiculo
+
     @Override
     public String toString() {
         return "Placa: " + this.placa + "\n" +
                "Marca: " + this.marca + "\n" +
                "Modelo: " + this.modelo + "\n" +
-               "Ano de Fbricação: " + this.anoFabricacao + "\n";
+               "Ano de Fabricação: " + this.anoFabricacao + "\n";
     }
     
 }

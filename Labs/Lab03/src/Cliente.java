@@ -8,14 +8,15 @@ public class Cliente {
 
 
     // Construtor
-    public Cliente(String nome, String endereco, ArrayList<Veiculo> listaVeiculos) {
+    public Cliente(String nome, String endereco) {
         this.nome = nome;
         this.endereco = endereco;
-        this.listaVeiculos = listaVeiculos;
+        this.listaVeiculos = new ArrayList<Veiculo>();
     }
 
 
-    // Getters (acessors) e Setters (mutators)
+    // Métodos
+    // - Getters (acessors) e Setters (mutators)
     public String getNome() {
         return nome;
     }
@@ -32,8 +33,17 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public ArrayList<Veiculo> getListaVeiculos() {
-        return listaVeiculos;
+    public String getListaVeiculos() {
+        if (listaVeiculos.size() == 0) {
+            return "Não há veículos cadastrados para " + this.nome + ".\n";
+        }
+        String lista = "------------------------------\n" +
+                       "Veículos de " + this.nome + ":\n" +
+                       "------------------------------\n";
+        for (Veiculo v : listaVeiculos) {
+            lista += v.toString() + "----------\n";
+        }
+        return lista;
     }
 
     public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
@@ -41,15 +51,36 @@ public class Cliente {
     }
 
 
-    // Funções da Classe
-
-    // Fazer função para validar CNPJ
+    // - Funções da classe Cliente
+    public Boolean inserirVeiculo(Veiculo veiculo) {
+        /* Insere em listaVeiculos o veículo dado como parâmetro.
+        Se o veículo já estiver cadastrado, retorna False.
+        Caso contrário, retorna True. */
+            if (listaVeiculos.contains(veiculo)) {
+                return false;
+            }
+            listaVeiculos.add(veiculo);
+            return true;
+    }
     
+    public Boolean removerVeiculo(Veiculo veiculo) {
+            /* Insere em listaVeiculos o veículo dado como parâmetro.
+            Se o veículo já estiver cadastrado, retorna False.
+            Caso contrário, retorna True. */
+                if (listaVeiculos.contains(veiculo)) {
+                    return false;
+                }
+                listaVeiculos.add(veiculo);
+                return true;
+    }
+
     @Override
     public String toString() {
         return "Nome: " + this.nome + "\n" +
-               "Endereço: " + this.endereco + "\n" +
-               "Lista de Veículos: " + getListaVeiculos() + "\n";
+               "Endereço: " + this.endereco + "\n";
     }
-
 }
+
+
+
+// Pensar em listar os veículos do cliente na função toString

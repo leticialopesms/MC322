@@ -6,23 +6,22 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Current File",
+            "name": "Launch Java Program",
             "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "App",
-            "projectName": "Lab02_59c8bf86"
+            "mainClass": ""
         },
         {
             "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "Main",
-            "projectName": "Lab02_59c8bf86"
+            "projectName": "Lab03_c32e633"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
         }
     ]
 }

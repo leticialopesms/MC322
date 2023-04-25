@@ -1,8 +1,9 @@
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.Date;
 
 public class ClientePF extends Cliente {
-    private String CPF;
+    // Propriedades
+    private final String CPF;
     private String genero;
     private Date dataLicensa;
     private String educacao;
@@ -10,10 +11,10 @@ public class ClientePF extends Cliente {
     private String classeEconomica;
 
 
-    // Construtores
-    public ClientePF(String nome, String endereco, ArrayList<Veiculo> listaVeiculos, String CPF, String genero,
+    // Construtor
+    public ClientePF(String nome, String endereco, String CPF, String genero,
             Date dataLicensa, String educacao, Date dataNascimento, String classeEconomica) {
-        super(nome, endereco, listaVeiculos);
+        super(nome, endereco);
         this.CPF = CPF;
         this.genero = genero;
         this.dataLicensa = dataLicensa;
@@ -27,10 +28,6 @@ public class ClientePF extends Cliente {
     // Getters (acessors) and Setters (mutators)
     public String getCPF() {
         return CPF;
-    }
-
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
     }
 
     public String getGenero() {
@@ -74,7 +71,8 @@ public class ClientePF extends Cliente {
     }
     
 
-    // Funções da Classe
+    // - Funções da Classe ClientePF
+
     public boolean validarCPF(String cpf) {
         // 1. Removendo todos os caracteres não numéricos do CPF
         cpf = cpf.replaceAll("[^0-9]", "");
@@ -89,32 +87,31 @@ public class ClientePF extends Cliente {
         }
 
         // 4. Calculando os dígitos verificadores
-        // Convertendo String para int
         int temp = 0;
-        int primeiro_verificador_calculado = 0;
-        int segundo_verificador_calculado = 0;
+        int resto;
+        int verificador_calculado_1 = 0; // Primeiro verificador calculado
+        int verificador_calculado_2 = 0;  // Segundo verificador calculado
 
         // Primeiro dígito:
         for (int i = 0; i < 9; i++) {
             temp = temp + (Character.getNumericValue(cpf.charAt(i)) * (10 - i));
         }
-        temp = temp % 11;
-        if (temp > 1) primeiro_verificador_calculado = 11 - temp;
+        resto = temp % 11;
+        if (temp > 1) verificador_calculado_1 = 11 - resto;
 
-        // Segundo dígito
+        // Segundo dígito:
         temp = 0;
         for (int i = 0; i < 10; i++) {
             temp = temp + (Character.getNumericValue(cpf.charAt(i)) * (11 - i));
         }
-        temp = temp % 11;
-        if (temp > 1) segundo_verificador_calculado = 11 - temp;
+        resto = temp % 11;
+        if (temp > 1) verificador_calculado_2 = 11 - resto;
 
-        // 5.Verificando se os dígitos verificadores calculados são iguais aos dígitos
-        int primeiro_verificador_cpf = Character.getNumericValue(cpf.charAt(9));
-        int segundo_verificador_cpf = Character.getNumericValue(cpf.charAt(10));
+        // 5.Verificando se os dígitos verificadores calculados são iguais aos dígitos do CPF
+        int verificador_cpf_1 = Character.getNumericValue(cpf.charAt(9)); // Primeiro verificador do CPF = dígito 10
+        int verificador_cpf_2 = Character.getNumericValue(cpf.charAt(10)); // Segundo verificador do CPF = dígito 11
         
-        if (primeiro_verificador_calculado == primeiro_verificador_cpf 
-            && segundo_verificador_calculado == segundo_verificador_cpf) return true;
+        if (verificador_calculado_1 == verificador_cpf_1 && verificador_calculado_2 == verificador_cpf_2) return true;
         else return false;
     }
 
