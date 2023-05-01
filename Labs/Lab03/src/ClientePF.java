@@ -5,7 +5,7 @@ public class ClientePF extends Cliente {
     // Propriedades
     private final String CPF;
     private String genero;
-    private Date dataLicensa;
+    private Date dataLicenca;
     private String educacao;
     private Date dataNascimento;
     private String classeEconomica;
@@ -17,7 +17,7 @@ public class ClientePF extends Cliente {
         super(nome, endereco);
         this.CPF = CPF;
         this.genero = genero;
-        this.dataLicensa = dataLicensa;
+        this.dataLicenca = dataLicensa;
         this.educacao = educacao;
         this.dataNascimento = dataNascimento;
         this.classeEconomica = classeEconomica;
@@ -38,12 +38,12 @@ public class ClientePF extends Cliente {
         this.genero = genero;
     }
 
-    public Date getDataLicensa() {
-        return dataLicensa;
+    public Date getDataLicenca() {
+        return dataLicenca;
     }
 
-    public void setDataLicensa(Date dataLicensa) {
-        this.dataLicensa = dataLicensa;
+    public void setDataLicenca(Date dataLicensa) {
+        this.dataLicenca = dataLicensa;
     }
 
     public String getEducacao() {
@@ -120,7 +120,7 @@ public class ClientePF extends Cliente {
         return super.toString() +
                "CPF: " + this.CPF + "\n" +
                "Gênero: " + this.genero + "\n" +
-               "Data da Licensa: " + this.dataLicensa + "\n" +
+               "Data da Licensa: " + this.dataLicenca + "\n" +
                "Educação: " + this.educacao + "\n" +
                "Data de Nascimento: " + this.dataNascimento + "\n" +
                "classe Econômica: " + this.classeEconomica + "\n";

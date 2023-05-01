@@ -39,38 +39,37 @@ public class Cliente {
 
 
     // - Funções da classe Cliente
+    
     public Boolean inserirVeiculo(Veiculo veiculo) {
         /* Insere em listaVeiculos o veículo dado como parâmetro.
         Se o veículo já estiver cadastrado, retorna False.
         Caso contrário, retorna True. */
-            if (listaVeiculos.contains(veiculo)) {
-                return false;
-            }
-            listaVeiculos.add(veiculo);
-            return true;
+        if (listaVeiculos.contains(veiculo)) {
+            return false;
+        }
+        listaVeiculos.add(veiculo);
+        return true;
     }
     
     public Boolean removerVeiculo(Veiculo veiculo) {
-            /* Insere em listaVeiculos o veículo dado como parâmetro.
-            Se o veículo já estiver cadastrado, retorna False.
-            Caso contrário, retorna True. */
-                if (listaVeiculos.contains(veiculo)) {
-                    return false;
-                }
-                listaVeiculos.add(veiculo);
-                return true;
+        /* Insere em listaVeiculos o veículo dado como parâmetro.
+        Se o veículo já estiver cadastrado, retorna False.
+        Caso contrário, retorna True. */
+        if (listaVeiculos.contains(veiculo))
+            return false;
+        listaVeiculos.add(veiculo);
+        return true;
     }
 
     public String listarVeiculos() {
-        if (listaVeiculos.size() == 0) {
+        /* Retorna uma string com uma lista de veículos do cliente. */
+        if (listaVeiculos.size() == 0)
             return "Não há veículos cadastrados para " + this.nome + ".\n";
-        }
         String lista = "------------------------------\n" +
                        "Veículos de " + this.nome + ":\n" +
                        "------------------------------\n";
-        for (Veiculo v : listaVeiculos) {
+        for (Veiculo v : listaVeiculos)
             lista += v.toString() + "----------\n";
-        }
         return lista;
     }
 
