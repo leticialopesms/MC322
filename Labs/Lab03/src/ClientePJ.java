@@ -41,39 +41,41 @@ public class ClientePJ extends Cliente{
 
         // 3. Verificando se todos os dígitos são iguais
         char primeiro = cnpj.charAt(0);
-        for (int i = 1; i < 14; ++i) {
-            if (primeiro == cnpj.charAt(i)) return false;
+        int k = 13;
+        while (k > 0) {
+            if (primeiro != cnpj.charAt(k)) k = -1;
+            else k--;
         }
+        if (k == 0) return false;
 
         // 4. Calculando os dígitos verificadores
-        int[] fatores_1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
-        int temp = 0;
+        int temp;
         int resto;
-        int verificador_calculado_1 = 0; // Primeiro verificador calculado
-        int verificador_calculado_2 = 0;  // Segundo verificador calculado
+        int verificador_calculado_1 = 0;  // 1º verificador calculado
+        int verificador_calculado_2 = 0;  // 2º verificador calculado
 
-        // Primeiro dígito:
-        for (int i = 0; i < 12; i++) {
+        // 1º DÍGITO:
+        int[] fatores_1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        temp = 0;
+        for (int i = 0; i < 12; i++)
             temp = temp + (Character.getNumericValue(cnpj.charAt(i)) * (fatores_1[i]));
-        }
         resto = temp % 11;
         if (temp <= 1) verificador_calculado_1 = 0;
         else verificador_calculado_1 = 11 - resto;
 
-        // Segundo dígito:
+        // 2º DÍGITO:
         int[] fatores_2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
         temp = 0;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 12; i++)
             temp = temp + (Character.getNumericValue(cnpj.charAt(i)) * (fatores_2[i]));
-        }
         temp = temp + (verificador_calculado_1 * fatores_2[12]);
         resto = temp % 11;
         if (temp <= 1) verificador_calculado_2 = 0;
         else verificador_calculado_2 = 11 - resto;
 
         // 5.Verificando se os dígitos verificadores calculados são iguais aos dígitos do CNPJ
-        int verificador_cpf_1 = Character.getNumericValue(cnpj.charAt(12)); // Primeiro verificador do CNPJ = dígito 13
-        int verificador_cpf_2 = Character.getNumericValue(cnpj.charAt(13));  // Segundo verificador do CNPJ = dígito 14
+        int verificador_cpf_1 = Character.getNumericValue(cnpj.charAt(12));  // 1º verificador do CNPJ = dígito 13
+        int verificador_cpf_2 = Character.getNumericValue(cnpj.charAt(13));  // 2º verificador do CNPJ = dígito 14
         
         if (verificador_calculado_1 == verificador_cpf_1 && verificador_calculado_2 == verificador_cpf_2) return true;
         else return false;

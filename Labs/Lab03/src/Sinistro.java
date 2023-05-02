@@ -12,7 +12,7 @@ public class Sinistro {
 
 
     // Construtor
-    public Sinistro(int id, Date data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
+    public Sinistro(Date data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
         this.id = setId();
         this.data = data;
         this.endereco = endereco;
@@ -85,9 +85,9 @@ public class Sinistro {
         return "ID: " + this.id + "\n" +
                "data: " + this.data + "\n" +
                "Endereço: " + this.endereco + "\n" +
-               "Seguradora: " + this.seguradora + "\n" +
-               "Veículo: " + this.veiculo + "\n" +
-               "Cliente: " + this.cliente + "\n";
+               "- Seguradora -\n" + this.seguradora + "\n" +
+               "- Veículo -\n" + this.veiculo + "\n" +
+               "- Cliente -\n" + this.cliente + "\n";
     }
 }
 

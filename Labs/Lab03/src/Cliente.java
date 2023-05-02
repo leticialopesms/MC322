@@ -44,9 +44,8 @@ public class Cliente {
         /* Insere em listaVeiculos o veículo dado como parâmetro.
         Se o veículo já estiver cadastrado, retorna False.
         Caso contrário, retorna True. */
-        if (listaVeiculos.contains(veiculo)) {
+        if (listaVeiculos.contains(veiculo))
             return false;
-        }
         listaVeiculos.add(veiculo);
         return true;
     }
@@ -61,6 +60,13 @@ public class Cliente {
         return true;
     }
 
+    public Veiculo buscarVeiculo(String placa) {
+        for (Veiculo v : listaVeiculos) 
+            if (v.getPlaca().equals(placa))
+                return v;
+        return null;
+    }
+
     public String listarVeiculos() {
         /* Retorna uma string com uma lista de veículos do cliente. */
         if (listaVeiculos.size() == 0)
@@ -69,7 +75,7 @@ public class Cliente {
                        "Veículos de " + this.nome + ":\n" +
                        "------------------------------\n";
         for (Veiculo v : listaVeiculos)
-            lista += v.toString() + "----------\n";
+            lista += v.toString() + "------------------------------\n";
         return lista;
     }
 
@@ -79,7 +85,3 @@ public class Cliente {
                "Endereço: " + this.endereco + "\n";
     }
 }
-
-
-
-// Pensar em listar os veículos do cliente na função toString

@@ -59,5 +59,4 @@ public class Veiculo {
                "Modelo: " + this.modelo + "\n" +
                "Ano de Fabricação: " + this.anoFabricacao + "\n";
     }
-    
 }

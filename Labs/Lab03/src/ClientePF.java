@@ -82,37 +82,40 @@ public class ClientePF extends Cliente {
 
         // 3. Verificando se todos os dígitos são iguais
         char primeiro = cpf.charAt(0);
-        for (int i = 1; i < 11; i++) {
-            if (primeiro == cpf.charAt(i)) return false;
+        int k = 10;
+        while (k > 0) {
+            if (primeiro != cpf.charAt(k)) k = -1;
+            else k--;
         }
+        if (k == 0) return false;
 
         // 4. Calculando os dígitos verificadores
         int temp = 0;
         int resto;
-        int verificador_calculado_1 = 0; // Primeiro verificador calculado
-        int verificador_calculado_2 = 0;  // Segundo verificador calculado
+        int verificador_calculado_1 = 0;  // 1º verificador calculado
+        int verificador_calculado_2 = 0;  // 2º verificador calculado
 
-        // Primeiro dígito:
-        for (int i = 0; i < 9; i++) {
+        // 1º DÍGITO:
+        for (int i = 0; i < 9; i++)
             temp = temp + (Character.getNumericValue(cpf.charAt(i)) * (10 - i));
-        }
         resto = temp % 11;
         if (temp > 1) verificador_calculado_1 = 11 - resto;
 
-        // Segundo dígito:
+        // 1º DÍGITO:
         temp = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
             temp = temp + (Character.getNumericValue(cpf.charAt(i)) * (11 - i));
-        }
         resto = temp % 11;
         if (temp > 1) verificador_calculado_2 = 11 - resto;
 
         // 5.Verificando se os dígitos verificadores calculados são iguais aos dígitos do CPF
-        int verificador_cpf_1 = Character.getNumericValue(cpf.charAt(9)); // Primeiro verificador do CPF = dígito 10
-        int verificador_cpf_2 = Character.getNumericValue(cpf.charAt(10)); // Segundo verificador do CPF = dígito 11
+        int verificador_cpf_1 = Character.getNumericValue(cpf.charAt(9));  // 1º verificador do CPF = dígito 10
+        int verificador_cpf_2 = Character.getNumericValue(cpf.charAt(10)); // 2º verificador do CPF = dígito 11
         
-        if (verificador_calculado_1 == verificador_cpf_1 && verificador_calculado_2 == verificador_cpf_2) return true;
-        else return false;
+        if (verificador_calculado_1 == verificador_cpf_1 && verificador_calculado_2 == verificador_cpf_2)
+            return true;
+        else
+            return false;
     }
 
     @Override

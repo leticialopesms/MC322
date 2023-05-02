@@ -84,11 +84,9 @@ public class Seguradora {
         Caso contrário, retorna True. */
         if (listaClientes.contains(cliente)) {
             listaClientes.remove(cliente);
-            for (Sinistro s : listaSinistros) {
-                if (s.getCliente().equals(cliente)) {
+            for (Sinistro s : listaSinistros)
+                if (s.getCliente().equals(cliente))
                     listaSinistros.remove(s);
-                }
-            }
             return true;
         }
         return false;
@@ -101,21 +99,25 @@ public class Seguradora {
                        "Clientes do tipo " + tipoCliente + ":\n" +
                        "------------------------------\n";
         if (tipoCliente.equals("PF")) {
-            for (Cliente c : listaClientes) {
-                if (c instanceof ClientePF) {
-                    lista += c.toString() + "----------\n";
-                }
-            }
+            for (Cliente c : listaClientes)
+                if (c instanceof ClientePF)
+                    lista += c.toString() + "------------------------------\n";
         }
         else if (tipoCliente.equals("PJ")) {
             for (Cliente c : listaClientes) {
-                if (c instanceof ClientePJ) {
-                    lista += c.toString() + "----------\n";
-                }
+                if (c instanceof ClientePJ)
+                    lista += c.toString() + "------------------------------\n";
             }
         }
         else return "--- Tipo Inválido! ---";
         return lista;
+    }
+
+    public Cliente buscarCliente(String nome) {
+        for (Cliente c : listaClientes) 
+            if (c.getNome().equals(nome))
+                return c;
+        return null;
     }
 
     public boolean gerarSinistro(Sinistro sinistro) {
@@ -143,19 +145,21 @@ public class Seguradora {
 
     public String listarSinistros() {
     /* Retorna uma string com todos os sinistros da atual Seguradora. */
-        if (listaSinistros.size() == 0) {
+        if (listaSinistros.size() == 0)
             return "Não há sinistros cadastrados na Seguradora " + this.nome + ".\n";
-        }
         String lista = "------------------------------\n" +
                        "Sinistros da Seguradora " + this.nome + ":\n" +
                        "------------------------------\n";
-        for (Sinistro s : listaSinistros) {
-            lista += s.toString() + "----------\n";
-        }
+        for (Sinistro s : listaSinistros)
+            lista += s.toString() + "------------------------------\n";
         return lista;
     }
+
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + "\n" +
+               "Telefone: " + this.telefone + "\n" +
+               "Email: " + this.email + "\n" +
+               "Endereço: " + this.endereco + "\n";
+    }
 }
-
-
-
-// Pensar em validar CPF E CNPJ na função cadastrarCliente
