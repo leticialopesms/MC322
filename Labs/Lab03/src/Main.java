@@ -16,7 +16,7 @@ public class Main {
         System.out.println("--- Dados da seguradora ---");
         System.out.println(seguradora.toString());
 
-        String resposta;
+        String resposta;  // Utilizada para perguntas do tipo S ou N (Sim ou Não)
 
         // Cadastrando clientes
         System.out.print("Insira o número de clientes a serem cadastrados: ");
@@ -164,6 +164,7 @@ public class Main {
         System.out.println(seguradora.listarClientes("PJ"));
 
 
+        // Removendo clientes
         System.out.println("Gostaria de remover algum cliente? (S ou N)");
         resposta = entrada.nextLine();
         if (resposta.equals("S")) {
@@ -216,6 +217,7 @@ public class Main {
                 numSinistros--;
             }
         } // Fim da geração de sinistros
+        
         System.out.println(seguradora.listarSinistros());
 
 
