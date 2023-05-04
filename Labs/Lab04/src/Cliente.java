@@ -13,7 +13,7 @@ public class Cliente {
         this.nome = nome;
         this.endereco = endereco;
         this.listaVeiculos = new ArrayList<Veiculo>();
-        // this.valorSeguro = calculaScore();
+        this.valorSeguro = calculaScore();
     }
 
 
@@ -38,6 +38,14 @@ public class Cliente {
     public ArrayList<Veiculo> getListaVeiculos(){
         return this.listaVeiculos;
     }
+
+    public double getValorSeguro() {
+        return valorSeguro;
+    }
+
+    public void setValorSeguro() {
+        this.valorSeguro = calculaScore();
+    } // Usar o set a cada alteração de veículo?
 
 
     // - Funções da classe Cliente
@@ -81,12 +89,14 @@ public class Cliente {
         return lista;
     }
 
-    // Adicionar -----------------------
-    // calculaScore() -> retorna double
+    private double calculaScore() {
+        return 0;
+    } // Rever depois
 
     @Override
     public String toString() {
         return "Nome: " + this.nome + "\n" +
                "Endereço: " + this.endereco + "\n";
+               // Adicionar em toString() o valor do seguro?
     }
 }
