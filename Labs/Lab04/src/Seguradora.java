@@ -157,6 +157,18 @@ public class Seguradora {
 
     // Adicionar -----------------------
     // calcularPrecoSeguroCliente() -> retorna o que?
+
+    // public double calcularPrecoCliente(Cliente cliente) {
+    //     int preco;
+    //     if (cliente instanceof ClientePF) {
+            
+    //     }
+    //     else if (cliente instanceof ClientePJ) {
+    //         preco = VALOR_BASE * quantidadeCarros * (1 + ((ClientePJ)cliente.getQtdeFuncionarios()));
+    //     }
+
+    // }
+
     // calcularReceita() -> retorna o que?
 
     @Override
