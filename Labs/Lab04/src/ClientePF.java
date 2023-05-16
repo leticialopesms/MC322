@@ -1,8 +1,7 @@
-// import java.util.ArrayList;
 import java.util.Date;
 
 public class ClientePF extends Cliente {
-    // Propriedades
+    // // Atributos (Propriedades)
     private final String CPF;
     private String genero;
     private Date dataLicenca;
@@ -25,7 +24,9 @@ public class ClientePF extends Cliente {
 
 
     // Métodos
-    // Getters (acessors) and Setters (mutators)
+
+    // - Getters (acessors) and Setters (mutators)
+
     public String getCPF() {
         return CPF;
     }
@@ -73,53 +74,48 @@ public class ClientePF extends Cliente {
 
     // - Funções da Classe ClientePF
 
-    public boolean validarCPF(String cpf) {
-        // 1. Removendo todos os caracteres não numéricos do CPF
-        cpf = cpf.replaceAll("[^0-9]", "");
+    public int calculaIdade() {
+        Date hoje = new Date();
+        long tempo = hoje.getTime() - dataNascimento.getTime();
+        double diferenca = tempo/((double)1000*60*60*24*365);
+        int idade = (int)diferenca;
+        return idade;
+    } // Verificar
 
-        // 2. Verificando se o CPF tem 11 dígitos
-        if (cpf.length() != 11) return false;
-
-        // 3. Verificando se todos os dígitos são iguais
-        char primeiro = cpf.charAt(0);
-        int k = 10;
-        while (k > 0) {
-            if (primeiro != cpf.charAt(k)) k = -1;
-            else k--;
-        }
-        if (k == 0) return false;
-
-        // 4. Calculando os dígitos verificadores
-        int temp = 0;
-        int resto;
-        int verificador_calculado_1 = 0;  // 1º verificador calculado
-        int verificador_calculado_2 = 0;  // 2º verificador calculado
-
-        // 1º DÍGITO:
-        for (int i = 0; i < 9; i++)
-            temp = temp + (Character.getNumericValue(cpf.charAt(i)) * (10 - i));
-        resto = temp % 11;
-        if (temp > 1) verificador_calculado_1 = 11 - resto;
-
-        // 1º DÍGITO:
-        temp = 0;
-        for (int i = 0; i < 10; i++)
-            temp = temp + (Character.getNumericValue(cpf.charAt(i)) * (11 - i));
-        resto = temp % 11;
-        if (temp > 1) verificador_calculado_2 = 11 - resto;
-
-        // 5.Verificando se os dígitos verificadores calculados são iguais aos dígitos do CPF
-        int verificador_cpf_1 = Character.getNumericValue(cpf.charAt(9));  // 1º verificador do CPF = dígito 10
-        int verificador_cpf_2 = Character.getNumericValue(cpf.charAt(10)); // 2º verificador do CPF = dígito 11
+    public double calculaScore() {
+        /* Calcula o valor do seguro.
+        Utiliza o conceito de sobrecarga de métodos, a partir da
+        superclasse Cliente. 
         
-        if (verificador_calculado_1 == verificador_cpf_1 && verificador_calculado_2 == verificador_cpf_2)
-            return true;
+        Utiliza os fatores da classe CalcSeguro, segundo os
+        seguintes critérios:
+        Se 18 <= idade < 30: fator = 1.2;
+        Se 30 <= idade < 60: fator = 1.0;
+        Se 60 <= idade <= 90: fator = 1.5.
+    
+        Aqui, é considerado que o cliente foi cadastrado com sucesso
+        e, portanto, está apto para realizar o seguro. Isto é:
+        18 <= idade <= 90. */
+
+        // 1. Definindo o fator idade
+        int idade = this.calculaIdade();
+        double fatorIdade;
+        if (idade >= 18 && idade < 30)
+            fatorIdade = CalcSeguro.FATOR_18_30.getValor();
+        else if (idade >= 30 && idade < 60)
+            fatorIdade = CalcSeguro.FATOR_30_60.getValor();
         else
-            return false;
+            fatorIdade = CalcSeguro.FATOR_60_90.getValor();
+
+        // 2. Definindo o valor base
+        double valorBase = CalcSeguro.VALOR_BASE.getValor();
+
+        // 3. Definindo a quantidade de veículos
+        int qtdeVeiculos = this.getListaVeiculos().size();
+
+        return  valorBase * fatorIdade * qtdeVeiculos;
     }
 
-    // Adicionar -----------------------
-    // calculaScore() -> retorna double [VALOR_BASE * FATOR_IDADE * quantidadeCarros]
 
     @Override
     public String toString() {

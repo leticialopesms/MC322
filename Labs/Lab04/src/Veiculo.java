@@ -1,5 +1,5 @@
 public class Veiculo {
-    // Propriedades
+    // Atributos (Propriedades)
     private String placa;
     private String marca;
     private String modelo;
@@ -17,6 +17,7 @@ public class Veiculo {
 
     // Métodos
     // - Getters (acessors) e Setters (mutators)
+
     public String getPlaca() {
         return placa;
     }

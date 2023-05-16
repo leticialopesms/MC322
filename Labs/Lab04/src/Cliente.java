@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class Cliente {
-    // Propriedades
+public abstract class Cliente {
+    // Atributos (Propriedades)
     private String nome;
     private String endereco;
-    private ArrayList<Veiculo> listaVeiculos;
     private double valorSeguro;
+    private ArrayList<Veiculo> listaVeiculos;
 
 
     // Construtor
@@ -13,12 +13,14 @@ public class Cliente {
         this.nome = nome;
         this.endereco = endereco;
         this.listaVeiculos = new ArrayList<Veiculo>();
-        this.valorSeguro = calculaScore();
+        // O atributo valorSeguro é 
     }
 
 
     // Métodos
+
     // - Getters (acessors) e Setters (mutators)
+
     public String getNome() {
         return nome;
     }
@@ -35,17 +37,17 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public ArrayList<Veiculo> getListaVeiculos(){
-        return this.listaVeiculos;
-    }
-
     public double getValorSeguro() {
         return valorSeguro;
     }
 
-    public void setValorSeguro() {
-        this.valorSeguro = calculaScore();
-    } // Usar o set a cada alteração de veículo?
+    public void setValorSeguro(double valorSeguro) {
+        this.valorSeguro = valorSeguro;
+    }
+
+    public ArrayList<Veiculo> getListaVeiculos(){
+        return this.listaVeiculos;
+    }
 
 
     // - Funções da classe Cliente
@@ -71,6 +73,9 @@ public class Cliente {
     }
 
     public Veiculo buscarVeiculo(String placa) {
+        /* Busca em listaVeiculos o veículo dado como parâmetro.
+        Retorna o veículo se ele estiver cadastrado na lista.
+        Caso contrário, retorna null. */
         for (Veiculo v : listaVeiculos) 
             if (v.getPlaca().equals(placa))
                 return v;
@@ -89,9 +94,9 @@ public class Cliente {
         return lista;
     }
 
-    private double calculaScore() {
-        return 0;
-    } // Rever depois
+    public abstract double calculaScore();
+    /* Operação abstrata.
+    As subclasses implementarão o comportamento dessa operação. */
 
     @Override
     public String toString() {

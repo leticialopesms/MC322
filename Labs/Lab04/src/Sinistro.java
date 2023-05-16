@@ -1,9 +1,9 @@
 import java.util.Date;
-import java.util.Random;
 
 public class Sinistro {
-    // Propriedades
-    private final int id;
+    // Atributos (Propriedades)
+    private static int registros = 100000;
+    private final int ID;
     private Date data;
     private String endereco;
     private Seguradora seguradora;
@@ -13,7 +13,7 @@ public class Sinistro {
 
     // Construtor
     public Sinistro(Date data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
-        this.id = setId();
+        this.ID = gerarID();
         this.data = data;
         this.endereco = endereco;
         this.seguradora = seguradora;
@@ -24,17 +24,9 @@ public class Sinistro {
 
     // Métodos
     // - Getters (acessors) e Setters (mutators)
-    public int getId() {
-        return id;
-    }
 
-    public int setId() {
-        /* Gera números aleatórios de 6 dígitos.
-        Intervalo =[100.000 , 999.999].
-        Ainda é necessário resolver o problema de possíveis repetições.*/
-        Random num = new Random();
-        int id = num.nextInt(899999) + 100000;
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public Date getData() {
@@ -80,9 +72,16 @@ public class Sinistro {
 
     // - Funções da classe Sinistro
 
+    public int gerarID() {
+        /* Gera um número a partir do atributo de classe 'registros'.
+        Tem, pelo menos, 6 dígitos. */
+        registros++;
+        return registros;
+    }
+
     @Override
     public String toString() {
-        return "ID: " + this.id + "\n" +
+        return "ID: " + this.ID + "\n" +
                "data: " + this.data + "\n" +
                "Endereço: " + this.endereco + "\n" +
                "- Seguradora -\n" + this.seguradora + "\n" +
@@ -90,7 +89,3 @@ public class Sinistro {
                "- Cliente -\n" + this.cliente + "\n";
     }
 }
-
-
-
-// Pensar em mudar o setID para relacionar o id com a data de criação do sinistro

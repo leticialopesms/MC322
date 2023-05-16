@@ -1,47 +1,61 @@
-/* enum para menu externo
-Cada constante é vista como uma descrição e uma lista de outras constantes (que são as constantes do submenu)
+/* 
+Enum para menu externo
 
-new SubmenuOperacoes[]{} cria uma lista de constantes do submenu.
+Cada constante é vista como uma descrição e uma lista de outras
+constantes (que são as constantes do submenu)
+
+'new SubMenuOperacoes[]{}' cria uma lista de constantes do submenu.
 */
 public enum MenuOperacoes {
-	CADASTROS("Cadastros", new SubmenuOperacoes[] {
-			SubmenuOperacoes.CADASTRAR_CLIENTE,
-			SubmenuOperacoes.CADASTRAR_VEICULO,
-			SubmenuOperacoes.CADASTRAR_SEGURADORA,
-			SubmenuOperacoes.VOLTAR
+	CADASTRAR("Cadastrar", new SubMenuOperacoes[] {
+			SubMenuOperacoes.CADASTRAR_CLIENTE,
+			SubMenuOperacoes.CADASTRAR_VEICULO,
+			SubMenuOperacoes.CADASTRAR_SEGURADORA,
+			SubMenuOperacoes.VOLTAR
 	}),
-	LISTAR("Listar", new SubmenuOperacoes[] {
-			SubmenuOperacoes.LISTAR_CLIENTES,
-			SubmenuOperacoes.LISTAR_SINISTROS,
-			SubmenuOperacoes.LISTAR_VEICULOS,
-			SubmenuOperacoes.VOLTAR
+	LISTAR("Listar", new SubMenuOperacoes[] {
+			SubMenuOperacoes.LISTAR_CLIENTES,
+			SubMenuOperacoes.LISTAR_VEICULOS,
+			SubMenuOperacoes.LISTAR_SINISTROS,
+			SubMenuOperacoes.VOLTAR
 	}),
-	EXCLUIR("Excluir", new SubmenuOperacoes[] {
-			SubmenuOperacoes.EXCLUIR_CLIENTE,
-			SubmenuOperacoes.EXCLUIR_VEICULO,
-			SubmenuOperacoes.EXCLUIR_SINISTRO,
-			SubmenuOperacoes.VOLTAR}),
-	GERAR_SINISTRO("Gerar Sinistro", new SubmenuOperacoes[] {SubmenuOperacoes.VOLTAR}),
-	TRANSFERIR_SEGURO("Transferir Seguro", new SubmenuOperacoes[] {SubmenuOperacoes.VOLTAR}),
-	CALCULAR_RECEITA("Calcular Receita", new SubmenuOperacoes[] {SubmenuOperacoes.VOLTAR}),
-	SAIR("Sair", new SubmenuOperacoes[] {});
-	
-	//atributos
+	EXCLUIR("Excluir", new SubMenuOperacoes[] {
+			SubMenuOperacoes.EXCLUIR_CLIENTE,
+			SubMenuOperacoes.EXCLUIR_VEICULO,
+			SubMenuOperacoes.EXCLUIR_SINISTRO,
+			SubMenuOperacoes.VOLTAR
+	}),
+	GERAR_SINISTRO("Gerar Sinistro", new SubMenuOperacoes[] {
+			SubMenuOperacoes.VOLTAR
+	}),
+	TRANSFERIR_SEGURO("Transferir Seguro", new SubMenuOperacoes[] {
+			SubMenuOperacoes.VOLTAR
+	}),
+	CALCULAR_RECEITA("Calcular Receita", new SubMenuOperacoes[] {
+			SubMenuOperacoes.VOLTAR
+	}),
+	SAIR("Sair", new SubMenuOperacoes[] {
+	});
+
+
+	// Atributos
 	private final String descricao;
-	private final SubmenuOperacoes[] submenu;
-	
-	//Construtor
-	MenuOperacoes(String descricao, SubmenuOperacoes[] submenu){
+	private final SubMenuOperacoes[] submenu;
+
+
+	// Construtor
+	MenuOperacoes(String descricao, SubMenuOperacoes[] submenu){
 		this.descricao = descricao;
 		this.submenu = submenu;
 	}
-	
-	//getters
+
+
+	// Getters
 	public String getDescricao() {
 		return descricao;
 	}
 	
-	public SubmenuOperacoes[] getSubmenu() {
+	public SubMenuOperacoes[] getSubMenu() {
 		return submenu;
 	}
 }

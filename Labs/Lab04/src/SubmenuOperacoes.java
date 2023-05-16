@@ -1,7 +1,7 @@
 /*
- * Define as constantes dos submenus
+Define as constantes dos submenus
  */
-public enum SubmenuOperacoes {
+public enum SubMenuOperacoes {
 	CADASTRAR_CLIENTE("Cadastrar cliente"),
 	CADASTRAR_VEICULO("Cadastrar veiculo"),
 	CADASTRAR_SEGURADORA("Cadastrar seguradora"),
@@ -12,16 +12,19 @@ public enum SubmenuOperacoes {
 	EXCLUIR_VEICULO("Excluir veiculo"),
 	EXCLUIR_SINISTRO("Excluir sininstro"),
 	VOLTAR("Voltar");
-	
-	//atributo
+
+
+	// Atributo
 	private final String descricao;
-	
-	//Construtor
-    SubmenuOperacoes(String descricao){
+
+
+	// Construtor
+    SubMenuOperacoes(String descricao){
 		this.descricao = descricao;
 	}
-	
-	//getter
+
+
+	// Getter
 	public String getDescricao() {
 		return descricao;
 	}
