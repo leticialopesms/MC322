@@ -259,7 +259,7 @@ public class Main {
         System.out.print("Digite o ano de fabricação do veículo: ");
         int anoFabricacao = Integer.parseInt(entrada.nextLine());
 
-        Veiculo v = new Veiculo(placa, modelo, marca, anoFabricacao);
+        Veiculo v = new Veiculo(placa, marca, modelo, anoFabricacao);
         return v;
     }
 
