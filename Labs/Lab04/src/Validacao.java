@@ -104,19 +104,7 @@ public class Validacao {
         Acentos não são permitidos.
         Se for válido, retorna True. Se não, retorna False. */
         return (nome.matches("^[a-zA-Z]*$"));
-    } // Verificar
-
-
-   
-    // public static boolean validaTelefone (String telefone) {
-    //     /* Verifica se o número de telefone possui 11 ou 12
-    //     algarismos numéricos.
-    //     Caso seja, assume-se que é do tipo (DDD)XXXX-XXXX para
-    //     telefones fixos, ou (DDD)XXXXX-XXXX para celulares.
-    //     Se for válido, retorna True. Se não, retorna False. */
-    //     telefone = telefone.replaceAll("[^0-9]", "");
-    //     return (telefone.length() > 10 && telefone.length() < 13);
-    // }
+    }
 
 
     public static boolean validaPlaca (String placa) {

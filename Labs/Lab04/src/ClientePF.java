@@ -80,7 +80,7 @@ public class ClientePF extends Cliente {
         double diferenca = tempo/((double)1000*60*60*24*365);
         int idade = (int)diferenca;
         return idade;
-    } // Verificar
+    }
 
     public double calculaScore() {
         /* Calcula o valor do seguro.

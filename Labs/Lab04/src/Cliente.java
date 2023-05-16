@@ -18,7 +18,6 @@ public abstract class Cliente {
 
 
     // Métodos
-
     // - Getters (acessors) e Setters (mutators)
 
     public String getNome() {
