@@ -62,13 +62,14 @@ public abstract class Cliente {
     }
     
     public Boolean removerVeiculo(Veiculo veiculo) {
-        /* Insere em listaVeiculos o veículo dado como parâmetro.
-        Se o veículo já estiver cadastrado, retorna False.
+        /* Remove em listaVeiculos o veículo dado como parâmetro.
+        Se o veículo não estiver cadastrado, retorna False.
         Caso contrário, retorna True. */
-        if (listaVeiculos.contains(veiculo))
-            return false;
-        listaVeiculos.add(veiculo);
-        return true;
+        if (listaVeiculos.contains(veiculo)) {
+            listaVeiculos.remove(veiculo);
+            return true;
+        }
+        return false;
     }
 
     public Veiculo buscarVeiculo(String placa) {

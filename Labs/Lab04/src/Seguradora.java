@@ -162,7 +162,7 @@ public class Seguradora {
     }
 
     public boolean removerSinistro(Sinistro sinistro){
-        /* Remove um novo sinistro na listaSinistros. */
+        /* Remove um sinistro da listaSinistros. */
         if (listaSinistros.contains(sinistro)) {
             listaSinistros.remove(sinistro);
             return true;
@@ -201,7 +201,7 @@ public class Seguradora {
     }
 
     public String listarSinistros() {
-    /* Retorna uma string com todos os sinistros da Seguradora. */
+        /* Retorna uma string com todos os sinistros da Seguradora. */
         if (listaSinistros.size() == 0)
             return "Não há sinistros cadastrados na Seguradora " + this.nome + ".\n";
         String lista = "------------------------------\n" +
@@ -232,8 +232,9 @@ public class Seguradora {
         Itera sobre os valores de seguro de cada cliente da
         Seguradora e retona a soma de todos. */
         double receita = 0;
-        for (Cliente c : listaClientes)
+        for (Cliente c : listaClientes) {
             receita += c.getValorSeguro();
+        }
         return receita;
 
     }

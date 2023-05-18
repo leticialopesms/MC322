@@ -14,12 +14,12 @@ public class AppMain {
                                                 "3248-7052", 
                                                 "seguros@unicamp.br", 
                                                 "Cidade Universitaria, Campinas, SP");
-
         listaSeguradoras.add(seguradora1);
         System.out.println("------------------------------");
         System.out.println("Seguradora instanciada:");
         System.out.println("------------------------------");
         System.out.println(seguradora1);
+
         // Instanciando um ClientePF
         ClientePF cliente1 = new ClientePF("Leticia",
                                            "Marco, Belem, PA", 
@@ -56,7 +56,7 @@ public class AppMain {
         seguradora1.cadastrarCliente(cliente2);
 
         System.out.println("- Receita Total da seguradora " + seguradora1.getNome() +
-                           " após cadastrar os veículos: " + seguradora1.calcularReceita());
+                           " após cadastrar os veículos: " + seguradora1.calcularReceita() + "\n");
 
         // Gerando sinistros
         Sinistro sinistro1 = new Sinistro(formataData("12/05/2023"),
@@ -79,6 +79,8 @@ public class AppMain {
         seguradora1.calcularPrecoSeguroCliente(cliente2);
     
         // Chamando os métodos da classe Seguradora
+        System.out.println("------------------------------");
+        System.out.println("Clientes de " + seguradora1.getNome() + ":");
         System.out.println(seguradora1.listarClientes("PF"));
         System.out.println(seguradora1.listarClientes("PJ"));
 
@@ -88,7 +90,7 @@ public class AppMain {
         System.out.println(seguradora1.listarSinistros());
 
         System.out.println("- Receita Total da seguradora " + seguradora1.getNome() +
-                           " após a geração de sinistros: " + seguradora1.calcularReceita());
+                           " após a geração de sinistros: " + seguradora1.calcularReceita() + "\n");
 
         // Adicionando mais um veículo para cliente1
         Veiculo veiculo3 = new Veiculo("NHJ-1098",
@@ -105,11 +107,11 @@ public class AppMain {
         seguradora1.calcularPrecoSeguroCliente(cliente2);
         
         System.out.println("- Receita Total da seguradora " + seguradora1.getNome() +
-                           " após as alterações finais: " + seguradora1.calcularReceita());
+                           " após as alterações finais: " + seguradora1.calcularReceita() + "\n");
         
-        System.out.println("");
-
-
+        System.out.println("- Fim do cadastro manual.\n");
+        System.out.println("- Início do Menu Interativo.\n");
+    
 
         // Chamando o Menu de Operações
         executarMenu(listaSeguradoras);
@@ -118,6 +120,7 @@ public class AppMain {
 
 
     public static String exibirMenu(){
+        /* Exibe as operações do enum MenuOperacoes no terminal. */
         String telaOperacoes = "Que operação você deseja realizar?\n";
         int indice = 0;
         for (MenuOperacoes operacao : MenuOperacoes.values()) {
@@ -129,11 +132,12 @@ public class AppMain {
     }
 
     public static String exibirSubMenu(MenuOperacoes operacao){
+        /* Exibe as operações do enum SubMenuOperacoes no terminal. */
         String telaOperacoes = "O que você gostaria de " + operacao.getDescricao() + "?\n";
-        int subIndice = 0;
+        int SubIndice = 0;
         for (SubMenuOperacoes subOperacao : operacao.getSubMenu()) {
-            subIndice++;
-            telaOperacoes += " [" + subIndice + "] ";
+            SubIndice++;
+            telaOperacoes += " [" + SubIndice + "] ";
             telaOperacoes += subOperacao.getDescricao() + "\n";
         }
         return telaOperacoes;
@@ -141,13 +145,11 @@ public class AppMain {
 
 
     public static void executarMenu (ArrayList<Seguradora> listaSeguradoras) throws ParseException {
-        /* Transforma uma string em um objeto do tipo Date.*/
-
+        /* Executa as funionalidades do Menu Interativo. */
         Scanner entrada = new Scanner(System.in);
         System.out.println("----------------------------------------------------");
         System.out.println("--- Bem vind@ ao sistema de cadastro de Seguros! ---");
         System.out.println("----------------------------------------------------");
-        
         int indice;
         do {
             System.out.println(exibirMenu());
@@ -179,8 +181,9 @@ public class AppMain {
                     seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
                     if (seguradora == null)
                         System.out.print("ERRO: Seguradora não encontrada!");
-                    else
+                    else{
                         leituraSinistro(entrada, seguradora);
+                    }
                     break;
 
                 case TRANSFERIR_SEGURO:
@@ -203,10 +206,10 @@ public class AppMain {
                                 System.out.println("ERRO: Cliente recebedor não encontrado.");
                             else {
                                 Boolean seguroTransferido = seguradora.transferirSeguro(doador, recebedor);
-                                if (seguroTransferido)
-                                    System.out.println("- Transfência completa!");
-                                else
+                                if (!seguroTransferido)
                                     System.out.println("ERRO: Falha na transfência.");
+                                else
+                                    System.out.println("- Transfência completa!");
                             }
                         }
                     }
@@ -219,13 +222,15 @@ public class AppMain {
                     if (seguradora == null)
                         System.out.print("ERRO: Seguradora não encontrada!");
                     else
-                        System.out.println("Receita Total da seguradora " + seguradora.getNome() + ": " + seguradora.calcularReceita());
+                        System.out.println("Receita Total da seguradora " + seguradora.getNome() +
+                                           ": " + seguradora.calcularReceita() + "\n");
                     break;
 
                 case SAIR:
                     break;
             }
         } while (indice != 7);
+        System.out.println("- Fim do Menu Interativo.\n");
         entrada.close();    
     }
 
@@ -265,8 +270,10 @@ public class AppMain {
                     cliente = seguradora.buscarCliente(identificadorCliente);
                     if (cliente == null)
                         System.out.print("ERRO: Cliente não encontrado!");
-                    else
+                    else {
                         leituraVeiculo(entrada, cliente);
+                        seguradora.calcularPrecoSeguroCliente(cliente);
+                    }
                 }
                 break;
             
@@ -278,74 +285,105 @@ public class AppMain {
                 System.out.print("Digite o nome da seguradora na qual estão os clientes a serem listados: ");
                 nomeSeguradora = entrada.nextLine();
                 seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
-                System.out.println(seguradora.listarClientes("PF"));
-                System.out.println(seguradora.listarClientes("PJ"));
+                if (seguradora == null)
+                    System.out.println("ERRO: Seguradora não encontrada.");
+                else {
+                    System.out.println("Clientes de " + seguradora.getNome() + ":");
+                    System.out.println(seguradora.listarClientes("PF"));
+                    System.out.println(seguradora.listarClientes("PJ"));
+                }
                 break;
 
             case LISTAR_VEICULOS:
                 System.out.print("Digite o nome da seguradora do cliente: ");
                 nomeSeguradora = entrada.nextLine();
                 seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
-                System.out.print("Digite o identificador do cliente (CPF ou CNPJ): ");
-                identificadorCliente = entrada.nextLine();
-                cliente = seguradora.buscarCliente(identificadorCliente);
-                System.out.println(cliente.listarVeiculos());
+                if (seguradora == null)
+                    System.out.println("ERRO: Seguradora não encontrada.");
+                else {
+                    System.out.print("Digite o identificador do cliente (CPF ou CNPJ): ");
+                    identificadorCliente = entrada.nextLine();
+                    cliente = seguradora.buscarCliente(identificadorCliente);
+                    if (cliente == null)
+                        System.out.println("ERRO: Cliente não encontrado.");
+                    else
+                        System.out.println(cliente.listarVeiculos());
+                }
                 break;
 
             case LISTAR_SINISTROS:
                 System.out.print("Digite o nome da seguradora: ");
                 nomeSeguradora = entrada.nextLine();
                 seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
-                System.out.println(seguradora.listarSinistros());
+                if (seguradora == null)
+                    System.out.println("ERRO: Seguradora não encontrada.");
+                else {
+                    System.out.println(seguradora.listarSinistros());
+                }
                 break;
             
             case EXCLUIR_CLIENTE:
                 System.out.print("Digite o nome da seguradora: ");
                 nomeSeguradora = entrada.nextLine();
                 seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
-                System.out.print("Digite o identificador do cliente (CPF ou CNPJ): ");
-                identificadorCliente = entrada.nextLine();
-                cliente = seguradora.buscarCliente(identificadorCliente);
-                Boolean clienteRemovido = seguradora.removerCliente(cliente);
-                if (clienteRemovido)
-                    System.out.println("- Cliente removido com sucesso.");
-                else
-                    System.out.println("- Erro ao remover cliente.");
+                if (seguradora == null)
+                    System.out.println("ERRO: Seguradora não encontrada.");
+                else {
+                    System.out.print("Digite o identificador do cliente (CPF ou CNPJ): ");
+                    identificadorCliente = entrada.nextLine();
+                    cliente = seguradora.buscarCliente(identificadorCliente);
+                    Boolean clienteRemovido = seguradora.removerCliente(cliente);
+                    if (!clienteRemovido)
+                        System.out.println("ERRO: Falha ao remover cliente.");
+                    else
+                        System.out.println("- Cliente removido com sucesso.");
+                }
                 break;
 
             case EXCLUIR_VEICULO:
                 System.out.print("Digite o nome da seguradora do cliente: ");
                 nomeSeguradora = entrada.nextLine();
                 seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
-                System.out.print("Digite o identificador do cliente (CPF ou CNPJ): ");
-                identificadorCliente = entrada.nextLine();
-                cliente = seguradora.buscarCliente(identificadorCliente);
-                System.out.print("Digite a placa do veículo que deseja remover: ");
-                String placa = entrada.nextLine();
-                Veiculo veiculo = cliente.buscarVeiculo(placa);
-                Boolean veiculoRemovido = cliente.removerVeiculo(veiculo);
-                if (veiculoRemovido)
-                    System.out.println("- Veículo removido com sucesso.");
-                else
-                    System.out.println("- Erro ao remover veículo.");
+                if (seguradora == null)
+                    System.out.println("ERRO: Seguradora não encontrada.");
+                else {
+                    System.out.print("Digite o identificador do cliente (CPF ou CNPJ): ");
+                    identificadorCliente = entrada.nextLine();
+                    cliente = seguradora.buscarCliente(identificadorCliente);
+                    if (cliente == null)
+                        System.out.println("ERRO: Cliente não encontrado.");
+                    else {
+                        System.out.print("Digite a placa do veículo que deseja remover: ");
+                        String placa = entrada.nextLine();
+                        Veiculo veiculo = cliente.buscarVeiculo(placa);
+                        Boolean veiculoRemovido = cliente.removerVeiculo(veiculo);
+                        if (!veiculoRemovido)
+                            System.out.println("ERRO: Falha ao remover veículo.");
+                        else {
+                            seguradora.calcularPrecoSeguroCliente(cliente);
+                            System.out.println("- Veículo removido com sucesso.");
+                        }
+                    }
+                }
                 break;
 
             case EXCLUIR_SINISTRO:
                 System.out.print("Digite o nome da seguradora: ");
                 nomeSeguradora = entrada.nextLine();
                 seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
-                System.out.print("Digite o id do sinistro: ");
-                int sinistroID = Integer.parseInt(entrada.nextLine());
-                Sinistro sinistro = seguradora.buscarSinistro(sinistroID);
-                if (sinistro == null) {
-                    System.out.println("- Sinistro não encontrado.");
-                }
+                if (seguradora == null)
+                    System.out.println("ERRO: Seguradora não encontrada.");
                 else {
+                    System.out.print("Digite o id do sinistro: ");
+                    int sinistroID = Integer.parseInt(entrada.nextLine());
+                    Sinistro sinistro = seguradora.buscarSinistro(sinistroID);
                     Boolean sinistroRemovido = seguradora.removerSinistro(sinistro);
-                    if (sinistroRemovido)
+                    if (!sinistroRemovido)
+                        System.out.println("ERRO: Falha ao remover sinistro.");
+                    else{
+                        seguradora.calcularPrecoSeguroCliente(sinistro.getCliente());
                         System.out.println("- Sinistro removido com sucesso.");
-                    else
-                        System.out.println("- Erro ao remover sinistro.");
+                    }
                 }
                 break;
             
@@ -386,67 +424,71 @@ public class AppMain {
             identificador = "CPF";
             System.out.print("Digite o CPF do cliente: ");
             String cpf = entrada.nextLine();
-            System.out.print("Digite o gênero do cliente: ");
-            String genero = entrada.nextLine();
-            System.out.print("Digite a data da licença do cliente (dd/mm/aaaa): ");
-            String dataLicensaString = entrada.nextLine();
-            Date dataLicenca = formataData(dataLicensaString);
-            System.out.print("Digite o grau de escolaridade do cliente: ");
-            String educacao = entrada.nextLine();
-            System.out.print("Digite a data de nascimento do cliente (dd/mm/aaaa): ");
-            String dataNascimentoString = entrada.nextLine();
-            Date dataNascimento = formataData(dataNascimentoString);
-            System.out.print("Digite a classe econômica do cliente: ");
-            String classeEconomica = entrada.nextLine();
-            System.out.println("-");
-
-            cliente = new ClientePF(nomeCliente,
-                                    enderecoCliente, 
-                                    cpf,
-                                    genero,
-                                    dataLicenca,
-                                    educacao, 
-                                    dataNascimento,
-                                    classeEconomica);
-
             validado = Validacao.validaCPF(cpf);
+            if (!validado)
+                System.out.println("ERRO: " + identificador + " inválido!");
+            else {
+                System.out.print("Digite o gênero do cliente: ");
+                String genero = entrada.nextLine();
+                System.out.print("Digite a data da licença do cliente (dd/mm/aaaa): ");
+                String dataLicensaString = entrada.nextLine();
+                Date dataLicenca = formataData(dataLicensaString);
+                System.out.print("Digite o grau de escolaridade do cliente: ");
+                String educacao = entrada.nextLine();
+                System.out.print("Digite a data de nascimento do cliente (dd/mm/aaaa): ");
+                String dataNascimentoString = entrada.nextLine();
+                Date dataNascimento = formataData(dataNascimentoString);
+                System.out.print("Digite a classe econômica do cliente: ");
+                String classeEconomica = entrada.nextLine();
+                System.out.println("-");
+    
+                cliente = new ClientePF(nomeCliente,
+                                        enderecoCliente, 
+                                        cpf,
+                                        genero,
+                                        dataLicenca,
+                                        educacao, 
+                                        dataNascimento,
+                                        classeEconomica);
+            }
         }
-        
+
         // Cliente PJ (Pessoa Jurídica)
         else if (tipoCliente.equals("PJ")) {
             identificador = "CNPJ";
             System.out.print("Digite o CNPJ do cliente: ");
             String cnpj = entrada.nextLine();
-            System.out.print("Digite a data de fundação (dd/mm/aaaa): ");
-            String dataFundacaoString = entrada.nextLine();
-            Date dataFundacao = formataData(dataFundacaoString);
-            System.out.print("Digite o número de funcionários do cliente: ");
-            int qtdeFuncionarios = Integer.parseInt(entrada.nextLine());
-            System.out.println("-");
-
-            cliente = new ClientePJ(nomeCliente,
-                                    enderecoCliente,
-                                    cnpj, 
-                                    dataFundacao,
-                                    qtdeFuncionarios);
-            
             validado = Validacao.validaCNPJ(cnpj);
+            if (!validado)
+                System.out.println("ERRO: " + identificador + " inválido!");
+            else {
+                System.out.print("Digite a data de fundação (dd/mm/aaaa): ");
+                String dataFundacaoString = entrada.nextLine();
+                Date dataFundacao = formataData(dataFundacaoString);
+                System.out.print("Digite o número de funcionários do cliente: ");
+                int qtdeFuncionarios = Integer.parseInt(entrada.nextLine());
+                System.out.println("-");
+    
+                cliente = new ClientePJ(nomeCliente,
+                                        enderecoCliente,
+                                        cnpj, 
+                                        dataFundacao,
+                                        qtdeFuncionarios);
+            }
         }
-            
-        if (validado) {
-            Boolean cliente_cadastrado = seguradora.cadastrarCliente(cliente);
-            if (cliente_cadastrado)
-                System.out.println("\n" + "- Cliente " + cliente.getNome() + " está no cadastro!");
-            else
-                System.out.println("\n" + "- Erro ao cadastrar cliente.");
-        }
+
+        // Verificando cadastro
+        Boolean cliente_cadastrado = seguradora.cadastrarCliente(cliente);
+        if (!cliente_cadastrado)
+            System.out.println("\n" + "ERRO: Falha ao cadastrar cliente.");
         else
-            System.out.println(identificador + " inválido!");
+            System.out.println("\n" + "- Cliente " + cliente.getNome() + " está no cadastro!");
     }
 
 
     public static void leituraVeiculo(Scanner entrada, Cliente cliente) {
-        /* Lê as informações necessárias para criar um objeto do tipo Veiculo. */
+        /* Lê as informações necessárias para criar um objeto do tipo Veiculo
+        e associá-lo a um cliente dado como parâmetro. */
         System.out.println("--- Novo veículo ---");    
         System.out.print("Digite a placa do veículo: ");
         String placa = entrada.nextLine();
@@ -525,8 +567,10 @@ public class AppMain {
                 Boolean sinistroGerado = seguradora.gerarSinistro(s);
                 if (!sinistroGerado)
                     System.out.println("ERRO: Falha ao gerar sinistro!");
-                else
+                else {
+                    seguradora.calcularPrecoSeguroCliente(s.getCliente());
                     System.out.println("- Sinistro gerado com sucesso!");
+                }
             }
         }
     }
