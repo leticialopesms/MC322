@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AppMain",
+            "request": "launch",
+            "mainClass": "AppMain",
+            "projectName": "Lab04_c32e634"
+        },
+        {
+            "type": "java",
             "name": "Launch Java Program",
             "request": "launch",
             "mainClass": ""
