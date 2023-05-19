@@ -100,10 +100,11 @@ public class Validacao {
 
 
     public static boolean validaNome (String nome) {
-        /* Verifica se o nome é composto somente por letras de A a Z.
-        Acentos não são permitidos.
+        /* Verifica se o nome é composto somente por letras de A a Z
+        (maiúsculas e minúsculas) e por espaços em branco.
+        Não aceita acentos.
         Se for válido, retorna True. Se não, retorna False. */
-        return (nome.matches("^[a-zA-Z]*$"));
+        return (nome.matches("^[a-zA-Z ]+$"));
     }
 
 
@@ -122,4 +123,4 @@ public class Validacao {
         int idade = ((ClientePF)cliente).calculaIdade();
         return (idade >= 18 && idade <= 90);
     }
-} 
+}

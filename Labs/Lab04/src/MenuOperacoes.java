@@ -1,10 +1,14 @@
-/* 
-Enum para menu externo
+/*
+
+Enum para menu externo.
 
 Cada constante é vista como uma descrição e uma lista de outras
-constantes (que são as constantes do submenu)
+constantes (que são as constantes do submenu).
 
 'new SubMenuOperacoes[]{}' cria uma lista de constantes do submenu.
+
+https://github.com/rebecapadovani/ExemploEnumMenu
+
 */
 public enum MenuOperacoes {
 	CADASTRAR("Cadastrar", new SubMenuOperacoes[] {

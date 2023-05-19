@@ -138,11 +138,13 @@ public class Seguradora {
 
     public Boolean transferirSeguro(Cliente doador, Cliente recebedor) {
         /* Transfere o seguro de um cliente para o outro. */
+        Boolean clienteRemovido = removerCliente(doador);
+        if (!clienteRemovido)
+            return false;
         for (Veiculo v : doador.getListaVeiculos()) {
-            recebedor.getListaVeiculos().add(v);
+            recebedor.inserirVeiculo(v);
         }
-        calcularPrecoSeguroCliente(recebedor);
-        removerCliente(doador);
+        cadastrarCliente(recebedor);
         return true;
     }
 
@@ -154,7 +156,9 @@ public class Seguradora {
     }
 
     public Sinistro buscarSinistro(int ID){
-        /* Busca um sinistro na listaSinistros. */
+        /* Busca um sinistro na listaSinistros.
+        Se encontrar, retorna o sinistro.
+        Caso contrário, retorna null. */
         for (Sinistro s : listaSinistros)
             if (s.getID() == ID)
                 return s;
@@ -162,7 +166,9 @@ public class Seguradora {
     }
 
     public boolean removerSinistro(Sinistro sinistro){
-        /* Remove um sinistro da listaSinistros. */
+        /* Remove um sinistro da listaSinistros.
+        Se o sinistro estiver na lista, remove-o e retorna True.
+        Caso contrário, retorna False. */
         if (listaSinistros.contains(sinistro)) {
             listaSinistros.remove(sinistro);
             return true;
@@ -174,12 +180,12 @@ public class Seguradora {
         /* Encontra os sinistros de listaSinistros que são associados
         ao cliente dado como parâmetro.
         Retorna uma lista com todos os sinistros encontrados. */
-            ArrayList<Sinistro> sinistrosCliente = new ArrayList<Sinistro>();
-            for (Sinistro s : listaSinistros)
-                if (s.getCliente().equals(cliente))
-                    sinistrosCliente.add(s);
-            return sinistrosCliente;
-    }
+        ArrayList<Sinistro> sinistrosCliente = new ArrayList<Sinistro>();
+        for (Sinistro s : listaSinistros)
+            if (s.getCliente().equals(cliente))
+                sinistrosCliente.add(s);
+        return sinistrosCliente;
+}
 
     public String visualizarSinistro(String identificacao) {
         /* Retorna uma string com os sinistros, caso existam,
@@ -196,7 +202,8 @@ public class Seguradora {
             sinistros_cliente += s.toString() + "------------------------------\n";
             temSinistro = true;
         }
-        if (!temSinistro) return "Não há sinistros cadastrados para: " + cliente + ".\n";
+        if (!temSinistro)
+            return "Não há sinistros cadastrados para: " + cliente + ".\n";
         return sinistros_cliente;
     }
 

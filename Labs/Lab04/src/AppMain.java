@@ -55,8 +55,9 @@ public class AppMain {
         seguradora1.cadastrarCliente(cliente1);
         seguradora1.cadastrarCliente(cliente2);
 
-        System.out.println("- Receita Total da seguradora " + seguradora1.getNome() +
-                           " após cadastrar os veículos: " + seguradora1.calcularReceita() + "\n");
+        System.out.println("- Receita Total da seguradora " + seguradora1.getNome() 
+                           + " após cadastrar os clientes e os veículos: " 
+                           + seguradora1.calcularReceita() + "\n");
 
         // Gerando sinistros
         Sinistro sinistro1 = new Sinistro(formataData("12/05/2023"),
@@ -125,7 +126,7 @@ public class AppMain {
         int indice = 0;
         for (MenuOperacoes operacao : MenuOperacoes.values()) {
             indice++;
-            telaOperacoes += " [" + indice + "] ";
+            telaOperacoes += "[" + indice + "] ";
             telaOperacoes += operacao.getDescricao() + "\n";
         }
         return telaOperacoes;
@@ -134,10 +135,10 @@ public class AppMain {
     public static String exibirSubMenu(MenuOperacoes operacao){
         /* Exibe as operações do enum SubMenuOperacoes no terminal. */
         String telaOperacoes = "O que você gostaria de " + operacao.getDescricao() + "?\n";
-        int SubIndice = 0;
+        int subIndice = 0;
         for (SubMenuOperacoes subOperacao : operacao.getSubMenu()) {
-            SubIndice++;
-            telaOperacoes += " [" + SubIndice + "] ";
+            subIndice++;
+            telaOperacoes += " [" + subIndice + "] ";
             telaOperacoes += subOperacao.getDescricao() + "\n";
         }
         return telaOperacoes;
@@ -145,7 +146,8 @@ public class AppMain {
 
 
     public static void executarMenu (ArrayList<Seguradora> listaSeguradoras) throws ParseException {
-        /* Executa as funionalidades do Menu Interativo. */
+        /* Executa as funionalidades do Menu Interativo que dependem
+        do enum MenuOperacoes. */
         Scanner entrada = new Scanner(System.in);
         System.out.println("----------------------------------------------------");
         System.out.println("--- Bem vind@ ao sistema de cadastro de Seguros! ---");
@@ -180,7 +182,7 @@ public class AppMain {
                     nomeSeguradora = entrada.nextLine();
                     seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
                     if (seguradora == null)
-                        System.out.print("ERRO: Seguradora não encontrada!");
+                        System.out.println("ERRO: Seguradora não encontrada!");
                     else{
                         leituraSinistro(entrada, seguradora);
                     }
@@ -220,7 +222,7 @@ public class AppMain {
                     nomeSeguradora = entrada.nextLine();
                     seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
                     if (seguradora == null)
-                        System.out.print("ERRO: Seguradora não encontrada!");
+                        System.out.println("ERRO: Seguradora não encontrada!");
                     else
                         System.out.println("Receita Total da seguradora " + seguradora.getNome() +
                                            ": " + seguradora.calcularReceita() + "\n");
@@ -229,13 +231,17 @@ public class AppMain {
                 case SAIR:
                     break;
             }
-        } while (indice != 7);
+            System.out.println(""); // Fim da Operação
+        } while (indice != 7); // Nova Operação
+
         System.out.println("- Fim do Menu Interativo.\n");
         entrada.close();    
-    }
+    } // Fim do Menu Interativo
 
 
     public static void executarSubMenu (Scanner entrada, MenuOperacoes operacao, ArrayList<Seguradora> listaSeguradoras) throws ParseException {
+        /* Executa as funionalidades do Menu Interativo que dependem
+        do enum SubMenuOperacoes. */
         System.out.println(exibirSubMenu(operacao));
 
         int subIndice = Integer.parseInt(entrada.nextLine());
@@ -252,8 +258,8 @@ public class AppMain {
                 System.out.print("Digite o nome da seguradora na qual será cadastrado o cliente: ");
                 nomeSeguradora = entrada.nextLine();
                 seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
-                if (seguradora != null)
-                    System.out.print("ERRO: Seguradora não encontrada!");
+                if (seguradora == null)
+                    System.out.println("ERRO: Seguradora não encontrada!");
                 else
                     leituraCliente(entrada, seguradora);
                 break;
@@ -263,7 +269,7 @@ public class AppMain {
                 nomeSeguradora = entrada.nextLine();
                 seguradora = buscaSeguradora(nomeSeguradora, listaSeguradoras);
                 if (seguradora == null)
-                    System.out.print("ERRO: Seguradora não encontrada!");
+                    System.out.println("ERRO: Seguradora não encontrada!");
                 else {
                     System.out.print("Digite o identificador do cliente (CPF ou CNPJ): ");
                     identificadorCliente = entrada.nextLine();
@@ -405,7 +411,7 @@ public class AppMain {
         /* Lê as informações necessárias para criar um objeto do tipo cliente.
         Retorna true se o cliente for cadastrado com sucesso.
         Caso contrário, retorna false. */
-        Boolean validado = false;
+        Boolean identificadorValidado = false, nomeValidado = true, idadeValidada = true;
         Cliente cliente = null;
         String identificador = null;
 
@@ -416,73 +422,84 @@ public class AppMain {
         // Informações gerais do Cliente
         System.out.print("Digite o nome do cliente: ");
         String nomeCliente = entrada.nextLine();
-        System.out.print("Digite o endereço do cliente: ");
-        String enderecoCliente = entrada.nextLine();
-
-        // Cliente PF (Pessoa Física)
-        if (tipoCliente.equals("PF")) {
-            identificador = "CPF";
-            System.out.print("Digite o CPF do cliente: ");
-            String cpf = entrada.nextLine();
-            validado = Validacao.validaCPF(cpf);
-            if (!validado)
-                System.out.println("ERRO: " + identificador + " inválido!");
-            else {
-                System.out.print("Digite o gênero do cliente: ");
-                String genero = entrada.nextLine();
-                System.out.print("Digite a data da licença do cliente (dd/mm/aaaa): ");
-                String dataLicensaString = entrada.nextLine();
-                Date dataLicenca = formataData(dataLicensaString);
-                System.out.print("Digite o grau de escolaridade do cliente: ");
-                String educacao = entrada.nextLine();
-                System.out.print("Digite a data de nascimento do cliente (dd/mm/aaaa): ");
-                String dataNascimentoString = entrada.nextLine();
-                Date dataNascimento = formataData(dataNascimentoString);
-                System.out.print("Digite a classe econômica do cliente: ");
-                String classeEconomica = entrada.nextLine();
-                System.out.println("-");
+        nomeValidado = Validacao.validaNome(nomeCliente);
+        if (!nomeValidado)
+            System.out.println("ERRO: nome inválido!");
+        else {
+            System.out.print("Digite o endereço do cliente: ");
+            String enderecoCliente = entrada.nextLine();
     
-                cliente = new ClientePF(nomeCliente,
-                                        enderecoCliente, 
-                                        cpf,
-                                        genero,
-                                        dataLicenca,
-                                        educacao, 
-                                        dataNascimento,
-                                        classeEconomica);
+            // Cliente PF (Pessoa Física)
+            if (tipoCliente.equals("PF")) {
+                identificador = "CPF";
+                System.out.print("Digite o CPF do cliente: ");
+                String cpf = entrada.nextLine();
+                identificadorValidado = Validacao.validaCPF(cpf);
+                if (!identificadorValidado)
+                    System.out.println("ERRO: " + identificador + " inválido!");
+                else {
+                    System.out.print("Digite o gênero do cliente: ");
+                    String genero = entrada.nextLine();
+                    System.out.print("Digite a data da licença do cliente (dd/mm/aaaa): ");
+                    String dataLicensaString = entrada.nextLine();
+                    Date dataLicenca = formataData(dataLicensaString);
+                    System.out.print("Digite o grau de escolaridade do cliente: ");
+                    String educacao = entrada.nextLine();
+                    System.out.print("Digite a data de nascimento do cliente (dd/mm/aaaa): ");
+                    String dataNascimentoString = entrada.nextLine();
+                    Date dataNascimento = formataData(dataNascimentoString);
+                    System.out.print("Digite a classe econômica do cliente: ");
+                    String classeEconomica = entrada.nextLine();
+                    System.out.println("");
+        
+                    cliente = new ClientePF(nomeCliente,
+                                            enderecoCliente, 
+                                            cpf,
+                                            genero,
+                                            dataLicenca,
+                                            educacao, 
+                                            dataNascimento,
+                                            classeEconomica);
+    
+                    idadeValidada = Validacao.validaIdade(cliente);
+                    if (!idadeValidada)
+                        System.out.println("ERRO: Cliente não é apto para realizar o seguro.");
+                }
+            }
+    
+            // Cliente PJ (Pessoa Jurídica)
+            else if (tipoCliente.equals("PJ")) {
+                identificador = "CNPJ";
+                System.out.print("Digite o CNPJ do cliente: ");
+                String cnpj = entrada.nextLine();
+                identificadorValidado = Validacao.validaCNPJ(cnpj);
+                if (!identificadorValidado)
+                    System.out.println("ERRO: " + identificador + " inválido!");
+                else {
+                    System.out.print("Digite a data de fundação (dd/mm/aaaa): ");
+                    String dataFundacaoString = entrada.nextLine();
+                    Date dataFundacao = formataData(dataFundacaoString);
+                    System.out.print("Digite o número de funcionários do cliente: ");
+                    int qtdeFuncionarios = Integer.parseInt(entrada.nextLine());
+                    System.out.println("");
+        
+                    cliente = new ClientePJ(nomeCliente,
+                                            enderecoCliente,
+                                            cnpj, 
+                                            dataFundacao,
+                                            qtdeFuncionarios);
+                }
+            }
+    
+            // Verificando cadastro
+            if (nomeValidado && identificadorValidado && idadeValidada) {
+                Boolean cliente_cadastrado = seguradora.cadastrarCliente(cliente);
+                if (!cliente_cadastrado)
+                    System.out.println("ERRO: Falha ao cadastrar cliente.");
+                else
+                    System.out.println("- Cliente " + cliente.getNome() + " está no cadastro!");
             }
         }
-
-        // Cliente PJ (Pessoa Jurídica)
-        else if (tipoCliente.equals("PJ")) {
-            identificador = "CNPJ";
-            System.out.print("Digite o CNPJ do cliente: ");
-            String cnpj = entrada.nextLine();
-            validado = Validacao.validaCNPJ(cnpj);
-            if (!validado)
-                System.out.println("ERRO: " + identificador + " inválido!");
-            else {
-                System.out.print("Digite a data de fundação (dd/mm/aaaa): ");
-                String dataFundacaoString = entrada.nextLine();
-                Date dataFundacao = formataData(dataFundacaoString);
-                System.out.print("Digite o número de funcionários do cliente: ");
-                int qtdeFuncionarios = Integer.parseInt(entrada.nextLine());
-                System.out.println("-");
-    
-                cliente = new ClientePJ(nomeCliente,
-                                        enderecoCliente,
-                                        cnpj, 
-                                        dataFundacao,
-                                        qtdeFuncionarios);
-            }
-        }
-
-        // Verificando cadastro
-        Boolean cliente_cadastrado = seguradora.cadastrarCliente(cliente);
-        if (!cliente_cadastrado)
-            System.out.println("\n" + "ERRO: Falha ao cadastrar cliente.");
-        else
-            System.out.println("\n" + "- Cliente " + cliente.getNome() + " está no cadastro!");
     }
 
 
@@ -510,7 +527,7 @@ public class AppMain {
             if (!veiculo_inserido)
                 System.out.println("ERRO: Falha ao cadastrar veículo.");
             else
-                System.out.println("- Veículo cadastrado com sucesso!" + "\n");
+                System.out.println("- Veículo cadastrado com sucesso!");
         }
     }
 
@@ -534,7 +551,7 @@ public class AppMain {
             System.out.println("ERRO: Seguradora já está no cadastro.");
         else {
             listaSeguradoras.add(seguradora);
-            System.out.println("- Seguradora cadastrada com sucesso!" + "\n");
+            System.out.println("- Seguradora cadastrada com sucesso!");
         }
     }
 
@@ -585,6 +602,3 @@ public class AppMain {
     }
 
 } // Fim da classe AppMain
-
-
-// Tratar Exceptions e Validações

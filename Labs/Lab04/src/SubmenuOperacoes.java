@@ -1,5 +1,8 @@
 /*
-Define as constantes dos submenus
+
+Define as constantes dos submenus.
+https://github.com/rebecapadovani/ExemploEnumMenu
+
  */
 public enum SubMenuOperacoes {
 	CADASTRAR_CLIENTE("Cadastrar cliente"),

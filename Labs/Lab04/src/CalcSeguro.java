@@ -19,6 +19,4 @@ public enum CalcSeguro {
     public double getValor() {
         return valor;
     }
-
-    // - Função
 }

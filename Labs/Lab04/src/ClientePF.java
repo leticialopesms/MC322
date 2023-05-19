@@ -24,7 +24,6 @@ public class ClientePF extends Cliente {
 
 
     // Métodos
-
     // - Getters (acessors) and Setters (mutators)
 
     public String getCPF() {
