@@ -13,7 +13,7 @@ public abstract class Cliente {
         this.nome = nome;
         this.endereco = endereco;
         this.listaVeiculos = new ArrayList<Veiculo>();
-        // O atributo valorSeguro é 
+        // O atributo valorSeguro é  
     }
 
 
