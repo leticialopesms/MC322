@@ -12,21 +12,24 @@ https://github.com/rebecapadovani/ExemploEnumMenu
 */
 public enum MenuOperacoes {
 	CADASTRAR("Cadastrar", new SubMenuOperacoes[] {
+			SubMenuOperacoes.CADASTRAR_SEGURADORA,
 			SubMenuOperacoes.CADASTRAR_CLIENTE,
 			SubMenuOperacoes.CADASTRAR_VEICULO,
-			SubMenuOperacoes.CADASTRAR_SEGURADORA,
+			SubMenuOperacoes.CADASTRAR_FROTA,
 			SubMenuOperacoes.VOLTAR
 	}),
 	LISTAR("Listar", new SubMenuOperacoes[] {
 			SubMenuOperacoes.LISTAR_CLIENTES,
 			SubMenuOperacoes.LISTAR_VEICULOS,
 			SubMenuOperacoes.LISTAR_SINISTROS,
+			SubMenuOperacoes.LISTAR_SEGUROS,
 			SubMenuOperacoes.VOLTAR
 	}),
 	EXCLUIR("Excluir", new SubMenuOperacoes[] {
 			SubMenuOperacoes.EXCLUIR_CLIENTE,
 			SubMenuOperacoes.EXCLUIR_VEICULO,
 			SubMenuOperacoes.EXCLUIR_SINISTRO,
+			SubMenuOperacoes.EXCLUIR_SEGURO,
 			SubMenuOperacoes.VOLTAR
 	}),
 	GERAR_SINISTRO("Gerar Sinistro", new SubMenuOperacoes[] {
@@ -63,3 +66,5 @@ public enum MenuOperacoes {
 		return submenu;
 	}
 }
+
+// Rever

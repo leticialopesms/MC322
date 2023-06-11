@@ -9,6 +9,13 @@
             "name": "AppMain",
             "request": "launch",
             "mainClass": "AppMain",
+            "projectName": "Lab05_c32e635"
+        },
+        {
+            "type": "java",
+            "name": "AppMain",
+            "request": "launch",
+            "mainClass": "AppMain",
             "projectName": "Lab04_c32e634"
         },
         {
