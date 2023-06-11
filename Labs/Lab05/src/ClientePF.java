@@ -1,25 +1,25 @@
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
-    // // Atributos (Propriedades)
+    // Atributos (Propriedades)
     private final String CPF;
     private String genero;
-    private Date dataLicenca;
     private String educacao;
-    private Date dataNascimento;
-    private String classeEconomica;
+    private LocalDate dataNascimento;
+    private ArrayList<Veiculo> listaVeiculos;
 
 
     // Construtor
-    public ClientePF(String nome, String endereco, String CPF, String genero,
-            Date dataLicensa, String educacao, Date dataNascimento, String classeEconomica) {
-        super(nome, endereco);
-        this.CPF = CPF;
+    public ClientePF(String nome, String telefone, String endereco, String email, 
+                     String cpf, String genero, String educacao, LocalDate dataNascimento) {
+        super(nome, telefone, endereco, email);
+        this.CPF = cpf;
         this.genero = genero;
-        this.dataLicenca = dataLicensa;
         this.educacao = educacao;
         this.dataNascimento = dataNascimento;
-        this.classeEconomica = classeEconomica;
+        this.listaVeiculos = new ArrayList<Veiculo>();
     }
 
 
@@ -38,14 +38,6 @@ public class ClientePF extends Cliente {
         this.genero = genero;
     }
 
-    public Date getDataLicenca() {
-        return dataLicenca;
-    }
-
-    public void setDataLicenca(Date dataLicensa) {
-        this.dataLicenca = dataLicensa;
-    }
-
     public String getEducacao() {
         return educacao;
     }
@@ -54,76 +46,80 @@ public class ClientePF extends Cliente {
         this.educacao = educacao;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getClasseEconomica() {
-        return classeEconomica;
-    }
-
-    public void setClasseEconomica(String classeEconomica) {
-        this.classeEconomica = classeEconomica;
+    public ArrayList<Veiculo> getListaVeiculos() {
+        return listaVeiculos;
     }
     
 
     // - Funções da Classe ClientePF
-
+    
     public int calculaIdade() {
-        Date hoje = new Date();
-        long tempo = hoje.getTime() - dataNascimento.getTime();
-        double diferenca = tempo/((double)1000*60*60*24*365);
-        int idade = (int)diferenca;
+        /* Calcula a idade do ClientePF.
+        Utiliza métodos da classe LocalDate. */
+        LocalDate dataAtual = LocalDate.now();
+        Period periodo = Period.between(dataNascimento, dataAtual);
+        int idade = periodo.getYears();
         return idade;
     }
 
-    public double calculaScore() {
-        /* Calcula o valor do seguro.
-        Utiliza o conceito de sobrecarga de métodos, a partir da
-        superclasse Cliente. 
-        
-        Utiliza os fatores da classe CalcSeguro, segundo os
-        seguintes critérios:
-        Se 18 <= idade < 30: fator = 1.2;
-        Se 30 <= idade < 60: fator = 1.0;
-        Se 60 <= idade <= 90: fator = 1.5.
-    
-        Aqui, é considerado que o cliente foi cadastrado com sucesso
-        e, portanto, está apto para realizar o seguro. Isto é:
-        18 <= idade <= 90. */
-
-        // 1. Definindo o fator idade
-        int idade = this.calculaIdade();
-        double fatorIdade;
-        if (idade >= 18 && idade < 30)
-            fatorIdade = CalcSeguro.FATOR_18_30.getValor();
-        else if (idade >= 30 && idade < 60)
-            fatorIdade = CalcSeguro.FATOR_30_60.getValor();
-        else
-            fatorIdade = CalcSeguro.FATOR_60_90.getValor();
-
-        // 2. Definindo o valor base
-        double valorBase = CalcSeguro.VALOR_BASE.getValor();
-
-        // 3. Definindo a quantidade de veículos
-        int qtdeVeiculos = this.getListaVeiculos().size();
-
-        return  valorBase * fatorIdade * qtdeVeiculos;
+    public boolean cadastrarVeiculo(Veiculo veiculo) {
+        /* Adiciona na listaVeiculos o veiculo dado como parâmetro.
+        Se o veiculo já for cadastrado, retorna False.
+        Caso contrário, retorna True. */
+        if (!listaVeiculos.contains(veiculo)) {
+            listaVeiculos.add(veiculo);
+            return true;
+        }
+        return false;
     }
 
+    public boolean removerVeiculo(Veiculo veiculo) {
+        /* Remove de listaVeiculos o veiculo dado como parâmetro.
+        Se o veiculo não estiver cadastrado, retorna False.
+        Caso contrário, retorna True. */
+        if (listaVeiculos.contains(veiculo)) {
+            listaVeiculos.remove(veiculo);
+            return true;
+        }
+        return false;
+    }
+
+    public String listarVeiculos() {
+        /* Retorna uma string com uma lista de veículos do cliente. */
+        if (listaVeiculos.size() == 0)
+            return "Não há veículos cadastrados para " + super.getNome() + ".\n";
+        String lista = "------------------------------\n" +
+                       "Veículos de " + super.getNome() + ":\n" +
+                       "------------------------------\n";
+        for (Veiculo v : listaVeiculos)
+            lista += v.toString() + "------------------------------\n";
+        return lista;
+    }
+
+    public Veiculo buscarVeiculo(String placa) {
+        /* Busca em listaVeiculos o veículo que tem a placa dada como parâmetro.
+        Retorna o veículo se ele estiver cadastrado na lista.
+        Caso contrário, retorna null. */
+        for (Veiculo v : listaVeiculos) 
+            if (v.getPlaca().equals(placa))
+                return v;
+        return null;
+    }
 
     @Override
     public String toString() {
         return super.toString() +
                "CPF: " + this.CPF + "\n" +
                "Gênero: " + this.genero + "\n" +
-               "Data da Licensa: " + this.dataLicenca + "\n" +
                "Educação: " + this.educacao + "\n" +
-               "Data de Nascimento: " + this.dataNascimento + "\n" +
-               "classe Econômica: " + this.classeEconomica + "\n";
+               "Data de Nascimento: " + this.dataNascimento + "\n";
     }
 }

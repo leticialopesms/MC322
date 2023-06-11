@@ -1,24 +1,22 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Sinistro {
     // Atributos (Propriedades)
-    private static int registros = 100000;
+    private static int registros = 1_000_000;
     private final int ID;
-    private Date data;
+    private LocalDate data;
     private String endereco;
-    private Seguradora seguradora;
-    private Veiculo veiculo;
-    private Cliente cliente;
+    private Condutor condutor;
+    private Seguro seguro;
 
 
     // Construtor
-    public Sinistro(Date data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
+    public Sinistro(LocalDate data, String endereco, Condutor condutor, Seguro seguro) {
         this.ID = gerarID();
         this.data = data;
         this.endereco = endereco;
-        this.seguradora = seguradora;
-        this.veiculo = veiculo;
-        this.cliente = cliente;
+        this.condutor = condutor;
+        this.seguro = seguro;
     }
 
 
@@ -29,11 +27,11 @@ public class Sinistro {
         return ID;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
@@ -45,28 +43,20 @@ public class Sinistro {
         this.endereco = endereco;
     }
 
-    public Seguradora getSeguradora() {
-        return seguradora;
+    public Condutor getCondutor() {
+        return condutor;
     }
 
-    public void setSeguradora(Seguradora seguradora) {
-        this.seguradora = seguradora;
+    public void setCondutor(Condutor condutor) {
+        this.condutor = condutor;
     }
 
-    public Veiculo getVeiculo() {
-        return veiculo;
+    public Seguro getSeguro() {
+        return seguro;
     }
 
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setSeguro(Seguro seguro) {
+        this.seguro = seguro;
     }
 
 
@@ -74,7 +64,7 @@ public class Sinistro {
 
     public int gerarID() {
         /* Gera um número a partir do atributo de classe 'registros'.
-        Tem, pelo menos, 6 dígitos. */
+        o id gerado tem, pelo menos, 7 dígitos. */
         registros++;
         return registros;
     }
@@ -82,10 +72,9 @@ public class Sinistro {
     @Override
     public String toString() {
         return "ID: " + this.ID + "\n" +
-               "data: " + this.data + "\n" +
-               "Endereço: " + this.endereco + "\n" +
-               "- Seguradora -\n" + this.seguradora + "\n" +
-               "- Veículo -\n" + this.veiculo + "\n" +
-               "- Cliente -\n" + this.cliente + "\n";
+               "Data: " + this.data + "\n" +
+               "Endereço: " + this.endereco + "\n" + "\n" +
+               "- Condutor -\n" + this.condutor + "\n" +
+               "- Seguro -\n" + this.seguro + "\n";
     }
 }

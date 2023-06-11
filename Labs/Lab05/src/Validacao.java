@@ -99,28 +99,39 @@ public class Validacao {
     }
 
 
-    public static boolean validaNome (String nome) {
+    public static boolean validaNome(String nome) {
         /* Verifica se o nome é composto somente por letras de A a Z
         (maiúsculas e minúsculas) e por espaços em branco.
         Não aceita acentos.
         Se for válido, retorna True. Se não, retorna False. */
         return (nome.matches("^[a-zA-Z ]+$"));
     }
+    
+
+    public static boolean validaTelefone(String telefone) {
+        /* Verifica se a o número de telefone possui o seguinte formato:
+        (DDD) X XXXX-XXXX ou (DDD) XXXX-XXXX, em que DDD pode ter 2 ou 3 dígitos.
+        Ou seja, verifica se tem de 10 a 12 dígitos numéricos.
+        Se for válido, retorna True. Se não, retorna False. */
+        telefone = telefone.replaceAll("[^0-9]", "");
+        return (telefone.length() >= 10 && telefone.length() <= 12);
+    }
+    
+
+    public static boolean validaIdade(Cliente cliente) {
+        /* Verifica se o cliente pode ser cadastrado. Isto é,
+        se idade do cliente >= 18.
+        Se for válida, retorna True. Se não, retorna False. */
+        int idade = ((ClientePF)cliente).calculaIdade();
+        return (idade >= 18);
+    }
 
 
-    public static boolean validaPlaca (String placa) {
+    public static boolean validaPlaca(String placa) {
         /* Verifica se a placa possui exatamente 7 caracteres
         alfanuméricos.
         Se for válida, retorna True. Se não, retorna False. */
         placa = placa.replaceAll("[^a-zA-Z0-9]", "");
         return (placa.length() == 7);
-    }
-
-    public static boolean validaIdade (Cliente cliente) {
-        /* Verifica se o cliente pode ser cadastrado. Isto é,
-        se 18 <= idade do cliente <= 90.
-        Se for válida, retorna True. Se não, retorna False. */
-        int idade = ((ClientePF)cliente).calculaIdade();
-        return (idade >= 18 && idade <= 90);
     }
 }
