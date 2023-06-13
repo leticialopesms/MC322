@@ -77,31 +77,24 @@ public class Seguradora {
 
     public boolean gerarSeguro(Seguro seguro) {
         /* Adiciona na listaSeguros o suguro dado como parâmetro.
-        Se o seguro já foi gerado antes, retorna False.
-        Caso contrário, retorna True. */
-        if (!listaSeguros.contains(seguro)) {
-            seguro.setValorMensal();
-            listaSeguros.add(seguro);
-            return true;
-        }
-        return false;
+        É garantido o id sempre será único.
+        Retorna True. */
+        seguro.setValorMensal();
+        listaSeguros.add(seguro);
+        return true;
     }
 
     public boolean cancelarSeguro(Seguro seguro) {
         /* Remove de listaSeguros o seguro dado como parâmetro.
         Se o seguro não tiver sido gerado antes, retorna False.
         Caso contrário, retorna True. */
-        if (listaSeguros.contains(seguro)) {
-            listaSeguros.remove(seguro);
-            return true;
-        }
-        return false;
+        return listaSeguros.remove(seguro);
     }
 
     public Seguro buscarSeguro(int id) {
         /* Busca, na lista de seguros da seguradora, o seguro cujo
         ID é igual ao id dado como parâmetro.
-        Retorna o seguro que atende ao critério (o ID é único).
+        Se encontrar, retorna o seguro que atende ao critério (o ID é único).
         Caso contrário, retorna null. */
         for (Seguro s : listaSeguros)
             if (s.getID() == id)
@@ -157,9 +150,9 @@ public class Seguradora {
     public String listarClientes(String tipoCliente) {
         /* Recebe "PF" (Pessoa Física) ou "PJ" (Pessoa Jurídica).
         Retorna uma string contendo apenas os clientes do tipo dado como parâmetro. */
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Clientes do tipo " + tipoCliente + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         if (tipoCliente.equals("PF")) {
             for (Cliente c : listaClientes)
                 if (c instanceof ClientePF)
@@ -178,7 +171,7 @@ public class Seguradora {
         /* Retorna uma string contendo todos os clientes da seguradora. */
         if (listaClientes.size() == 0)
             return "Ainda não há clientes cadastrados em " + this.nome + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Clientes de " + this.nome + ":\n";
         lista += listarClientes("PF") + "\n";
         lista += listarClientes("PJ") + "\n";
@@ -212,9 +205,9 @@ public class Seguradora {
         /* Retorna uma string com todos os seguros cadastrados na Seguradora. */
         if (listaSeguros.size() == 0)
             return "Ainda não há seguros gerados para " + this.nome + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Lista de Seguros de " + getNome() + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         for (Seguro s : listaSeguros)
             lista += s.toString() + "------------------------------\n";
         return lista;
@@ -241,9 +234,9 @@ public class Seguradora {
         ArrayList<Seguro> segurosCliente = getSegurosPorCliente(cliente);
         if (segurosCliente.size() == 0)
             return "Ainda não há seguros gerados para " + cliente.getNome() + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Seguros de " + cliente.getNome() + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         for (Seguro s : segurosCliente)
             lista += s.toString() + "------------------------------\n";
         return lista;
@@ -272,9 +265,9 @@ public class Seguradora {
         ArrayList<Sinistro> sinistrosCliente = getSinistrosPorCliente(cliente);
         if (sinistrosCliente.size() == 0)
             return "Ainda não há sinistros gerados para " + cliente.getNome() + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Sinistros de " + cliente.getNome() + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         for (Sinistro s : sinistrosCliente)
             lista += s.toString() + "------------------------------\n";
         return lista;

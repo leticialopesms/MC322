@@ -14,9 +14,9 @@ public class AppMain {
                                                 "Cidade Universitaria, Campinas, SP",
                                                 "seguros@unicamp.br");
         listaSeguradoras.add(seguradora1);
-        System.out.println("------------------------------");
+        System.out.println("--------------------------------------------------");
         System.out.println("Seguradora instanciada:");
-        System.out.println("------------------------------");
+        System.out.println("--------------------------------------------------");
         System.out.println(seguradora1);
 
         // Instanciando vários clientes do tipo ClientePF
@@ -322,7 +322,7 @@ public class AppMain {
         System.out.println("- Início do Menu Interativo.\n");
 
         // Chamando o Menu de Operações
-        // executarMenu(listaSeguradoras);
+        Menu.executarMenu(listaSeguradoras);
     
     } // Fim do método Main
 } // Fim da classe AppMain

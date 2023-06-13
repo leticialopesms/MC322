@@ -80,20 +80,26 @@ public class Condutor {
     // - Funções da classe Condutor
 
     public boolean adicionarSinistro(Sinistro sinistro) {
-        /* Adiciona um novo sinistro na lista de sinistros do contudor.
-        É garantido o id sempre será único. */
-        this.listaSinistros.add(sinistro);
-        return true;
+        /* Adiciona um novo sinistro na lista de sinistros do condutor.
+        É garantido o id sempre será único.
+        Retorna True. */
+        return this.listaSinistros.add(sinistro);
+    }
 
+    public boolean removerSinistro(Sinistro sinistro) {
+        /* Remove um sinistro da lista de sinistros do condutor.
+        Se o sinistro estiver na lista, retorna True.
+        Caso contrário, retorna False. */
+        return this.listaSinistros.add(sinistro);
     }
 
     public String listarSinistros() {
         /* Retorna uma string com todos os sinistros do condutor. */
         if (listaSinistros.size() == 0)
             return "Ainda não há sinistros para " + this.nome + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Sinistros de " + this.nome + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         for (Sinistro s : listaSinistros)
             lista += s.toString() + "------------------------------\n";
         return lista;

@@ -75,6 +75,6 @@ public class Sinistro {
                "Data: " + this.data + "\n" +
                "Endereço: " + this.endereco + "\n" + "\n" +
                "- Condutor -\n" + this.condutor + "\n" +
-               "- Seguro -\n" + this.seguro + "\n";
+               "- Seguro -\n" + this.seguro;
     }
 }

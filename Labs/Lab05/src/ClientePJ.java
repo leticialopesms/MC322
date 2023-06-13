@@ -69,13 +69,10 @@ public class ClientePJ extends Cliente{
     }
 
     public boolean atualizarFrota(int operacao, Frota frota, Veiculo veiculo) {
-        /* Recebe uma operação, uma frota a ser atualizada e um possível veículo
-        a ser adicionado ou removido desta frota.
-        Pode realizar 3 operações:
+        /* Recebe uma operação, uma frota a ser atualizada e um veículo.
+        Pode realizar 2 operações:
             [1] Adicionar veículo na frota
             [2] Remover veiculo da frota
-            [3] Excluir frota
-        No caso em que operacao == 3, veiculo = null.
         Retorna True se as operações forem realizadas com sucesso.
         Caso contrário, retorna False.*/
         if (operacao == 1) {
@@ -84,14 +81,18 @@ public class ClientePJ extends Cliente{
         else if (operacao == 2) {
             return frota.removerVeiculoFrota(veiculo);
         }
-        else if (operacao == 3) {
-            return listaFrotas.remove(frota);
-        }
         return false; // Caso a operação não seja válida
     }
 
+    public boolean excluirFrota(Frota frota) {
+        /* Recebe uma frota a ser removida da lista de frotas do clientePJ atual.
+        Retorna True se a frota for excluída com sucesso.
+        Caso contrário, retorna False.*/
+        return listaFrotas.remove(frota);
+    }
+
     public Frota buscarFrota(String code) {
-        /* Busca na listaFrota a frota cujo código (code) é igual
+        /* Busca, na lista de frotas, a frota cujo código (code) é igual
         ao código dado como parâmetro.
         Retorna a frota que atende ao critério (code é único).
         Caso contrário, retorna null. */
@@ -106,9 +107,9 @@ public class ClientePJ extends Cliente{
         /* Retorna uma string com todos as frotas do ClientePJ. */
         if (listaFrotas.size() == 0)
             return "Ainda não há frotas cadastradas para " + super.getNome() + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Frotas de " + super.getNome() + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         for (Frota f : listaFrotas)
             lista += f.toString() + "------------------------------\n";
         return lista;

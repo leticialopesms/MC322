@@ -14,8 +14,8 @@ public abstract class Seguro {
     /* O valorMensal deve ser recalculado ao:
         - Gerar Seguro                              OK
         - Atualizar/Desautorizar condutor           OK
-        - Cadastrar/Remover Veiculo
-        - Cadastrar/Atualizar Frota
+        - Cadastrar/Remover Veiculo                 OK
+        - Cadastrar/Atualizar Frota                 OK
         - Gerar sinistro (para Cliente e Condutor)  OK
         - Alterar a quantidade de funcionários de um ClientePJ
     */
@@ -120,9 +120,9 @@ public abstract class Seguro {
         /* Retorna uma string com todos os condutores do seguro. */
         if (listaCondutores.size() == 0)
             return "Ainda não há condutores autorizados para o seguro " + getID() + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Condutores do Seguro " + getID() + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         for (Condutor c : listaCondutores)
             lista += c.toString() + "------------------------------\n";
         return lista;
@@ -147,20 +147,32 @@ public abstract class Seguro {
     public boolean gerarSinistro(Sinistro sinistro) {
         /* Adiciona um novo sinistro na lista de sinistros do seguro.
         É garantido o id sempre será único.
-        Adiciona o sinistro na lista de sinistros do condutor associado a ele. */
-        this.listaSinistros.add(sinistro);
+        Também adiciona o sinistro na lista de sinistros do condutor associado a ele.
+        Retorna True. */
         sinistro.getCondutor().adicionarSinistro(sinistro);
         setValorMensal();
-        return true;
+        return this.listaSinistros.add(sinistro);
+    }
+
+    public boolean excluirSinistro(Sinistro sinistro) {
+        /* Remove um sinistro da lista de sinistros do seguro.
+        Também remove o sinistro da lista de sinistros do condutor associado a ele.
+        Se o sinistro estiver na lista, retorna True.
+        Caso contrário, retorna False. */
+        if (listaSinistros.contains(sinistro)) {
+            sinistro.getCondutor().removerSinistro(sinistro);
+            setValorMensal();
+        }
+        return this.listaSinistros.remove(sinistro);
     }
 
     public String listarSinistros() {
         /* Retorna uma string com todos os sinistros do seguro. */
         if (listaSinistros.size() == 0)
             return "Ainda não há sinistros para o seguro " + getID() + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Sinistros do Seguro " + getID() + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         for (Sinistro s : listaSinistros)
             lista += s.toString() + "------------------------------\n";
         return lista;

@@ -81,7 +81,7 @@ public class ClientePF extends Cliente {
         return false;
     }
 
-    public boolean removerVeiculo(Veiculo veiculo) {
+    public boolean excluirVeiculo(Veiculo veiculo) {
         /* Remove de listaVeiculos o veiculo dado como parâmetro.
         Se o veiculo não estiver cadastrado, retorna False.
         Caso contrário, retorna True. */
@@ -96,16 +96,17 @@ public class ClientePF extends Cliente {
         /* Retorna uma string com uma lista de veículos do cliente. */
         if (listaVeiculos.size() == 0)
             return "Não há veículos cadastrados para " + super.getNome() + ".\n";
-        String lista = "------------------------------\n" +
+        String lista = "--------------------------------------------------\n" +
                        "Veículos de " + super.getNome() + ":\n" +
-                       "------------------------------\n";
+                       "--------------------------------------------------\n";
         for (Veiculo v : listaVeiculos)
             lista += v.toString() + "------------------------------\n";
         return lista;
     }
 
     public Veiculo buscarVeiculo(String placa) {
-        /* Busca em listaVeiculos o veículo que tem a placa dada como parâmetro.
+        /* Busca, na lista de veículos, o veículo que tem a placa
+        dada como parâmetro.
         Retorna o veículo se ele estiver cadastrado na lista.
         Caso contrário, retorna null. */
         for (Veiculo v : listaVeiculos) 

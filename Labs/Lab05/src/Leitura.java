@@ -1,19 +1,39 @@
 import java.util.Scanner;
-// import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-// import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeParseException;
 
 public class Leitura {
     /* Essa classe é responsável por instanciar os objetos a partir da leitura
     dos dados obtidos na entrada (scanner). */
 
-    public static LocalDate formataData (String dataString) { // TODO: Tratar exception
+    public static LocalDate formataData (String dataString) {
         /* Transforma uma string em um objeto do tipo LocalDate.*/
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate data = LocalDate.parse(dataString, formatter);
         return data;
     }
+
+    public static LocalDate leData (Scanner entrada) {
+        /* Lê as informações necessárias para criar um objeto do tipo LocalDate.
+        Aqui, há o tratamento de exceção para converter um objeto do tipo String
+        para LocalDate, usando try e catch. */
+        Boolean dataValida = false;
+        LocalDate data = null;
+        do {
+            try {
+                String dataString = entrada.nextLine();
+                data = formataData(dataString);
+                dataValida = true;
+            }
+            catch (DateTimeParseException e) {
+                System.out.println("ERRO: Formato de data inválido. Insira a data novamente no formato dd/mm/aaaa. ");
+                dataValida = false;
+            }
+        } while(!dataValida);
+        return data;
+    }
+
 
     public static Seguradora leSeguradora (Scanner entrada) {
         /* Lê as informações necessárias para criar um objeto do tipo Seguradora.
@@ -41,118 +61,6 @@ public class Leitura {
     }
     
     
-    // public static boolean leClienteV1(Scanner entrada, Seguradora seguradora) {
-    //     // TODO: Incorporar em outra função depois
-    //     /* Lê as informações necessárias para criar um objeto do tipo cliente e
-    //     cadastrá-lo na seguradora.
-    //     Retorna true se o cliente for cadastrado com sucesso.
-    //     Caso contrário, retorna false e indica o erro. */
-    //     Boolean identificadorValidado = false,
-    //             nomeValidado = true,
-    //             telefoneValidado = true,
-    //             idadeValidada = true;
-    //     Cliente cliente = null;
-    //     String identificador = null;
-    //     // Para formatar datas:
-    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-    //     System.out.println("--- Novo Cliente ---");
-    //     System.out.print("Escolha o tipo de cliente a ser cadastrado (PF ou PJ): ");
-    //     String tipoCliente = entrada.nextLine();
-    //     if (!tipoCliente.equals("PF") && !tipoCliente.equals("PJ")) {
-    //         System.out.println("ERRO: tipo de cliente inválido!");
-    //         return false;
-    //     }
-
-    //     // Informações gerais do Cliente
-    //     System.out.print("Digite o nome do cliente: ");
-    //     String nome = entrada.nextLine();
-    //     nomeValidado = Validacao.validaNome(nome);
-    //     if (!nomeValidado) {
-    //         System.out.println("ERRO: nome inválido!");
-    //         return nomeValidado;
-    //     }
-    //     System.out.print("Digite o número de telefone do cliente ((DDD) XXXX-XXXX ou (DDD) X XXXX-XXXX): ");
-    //     String telefone = entrada.nextLine();
-    //     telefoneValidado = Validacao.validaTelefone(telefone);
-    //     if (!telefoneValidado) {
-    //         System.out.println("ERRO: número de telefone inválido!");
-    //         return telefoneValidado;
-    //     }
-    //     System.out.print("Digite o endereço do cliente: ");
-    //     String endereco = entrada.nextLine();
-    //     System.out.print("Digite o email do cliente: ");
-    //     String email = entrada.nextLine();
-
-    //     // Cliente PF (Pessoa Física)
-    //     if (tipoCliente.equals("PF")) {
-    //         identificador = "CPF";
-    //         System.out.print("Digite o CPF do cliente: ");
-    //         String cpf = entrada.nextLine();
-    //         identificadorValidado = Validacao.validaCPF(cpf);
-    //         if (!identificadorValidado) {
-    //             System.out.println("ERRO: " + identificador + " inválido!");
-    //             return identificadorValidado;
-    //         }
-    //         System.out.print("Digite o gênero do cliente: ");
-    //         String genero = entrada.nextLine();
-    //         System.out.print("Digite o grau de escolaridade do cliente: ");
-    //         String educacao = entrada.nextLine();
-    //         System.out.print("Digite a data de nascimento do cliente (dd/mm/aaaa): ");
-    //         String dataNascimentoString = entrada.nextLine();
-    //         LocalDate dataNascimento = LocalDate.parse(dataNascimentoString, formatter); //
-            
-    //         cliente = new ClientePF(nome,
-    //                                 telefone,
-    //                                 endereco,
-    //                                 email, 
-    //                                 cpf,
-    //                                 genero,
-    //                                 educacao, 
-    //                                 dataNascimento);
-
-    //         idadeValidada = Validacao.validaIdade(cliente);
-    //         if (!idadeValidada) {
-    //             System.out.println("ERRO: Cliente não é apto para realizar o seguro.");
-    //             return idadeValidada;
-    //         }
-    //     }
-
-    //     // Cliente PJ (Pessoa Jurídica)
-    //     else if (tipoCliente.equals("PJ")) {
-    //         identificador = "CNPJ";
-    //         System.out.print("Digite o CNPJ do cliente: ");
-    //         String cnpj = entrada.nextLine();
-    //         identificadorValidado = Validacao.validaCNPJ(cnpj);
-    //         if (!identificadorValidado) {
-    //             System.out.println("ERRO: " + identificador + " inválido!");
-    //             return identificadorValidado;
-    //         }
-    //         System.out.print("Digite a data de fundação (dd/mm/aaaa): ");
-    //         String dataFundacaoString = entrada.nextLine();
-    //         LocalDate dataFundacao = LocalDate.parse(dataFundacaoString, formatter);
-    //         System.out.print("Digite o número de funcionários do cliente: ");
-    //         int qtdeFuncionarios = Integer.parseInt(entrada.nextLine());
-
-    //         cliente = new ClientePJ(nome,
-    //                                 telefone,
-    //                                 endereco,
-    //                                 email,
-    //                                 cnpj,
-    //                                 dataFundacao,
-    //                                 qtdeFuncionarios);
-    //     }
-
-    //     // Verificando cadastro
-    //     Boolean clienteCadastrado = seguradora.cadastrarCliente(cliente);
-    //     if (!clienteCadastrado)
-    //         System.out.println("ERRO: Falha ao cadastrar cliente.");
-    //     else
-    //         System.out.println("- Cliente " + cliente.getNome() + " está no cadastro!\n");
-    //     return clienteCadastrado;
-    // }
-
-
     public static Cliente leCliente(Scanner entrada) {
         /* Lê as informações necessárias para criar um objeto do tipo cliente.
         Retorna o cliente se for instaciado com sucesso.
@@ -200,8 +108,7 @@ public class Leitura {
             System.out.print("Digite o grau de escolaridade do cliente: ");
             String educacao = entrada.nextLine();
             System.out.print("Digite a data de nascimento do cliente (dd/mm/aaaa): ");
-            String dataNascimentoString = entrada.nextLine();
-            LocalDate dataNascimento = formataData(dataNascimentoString);
+            LocalDate dataNascimento = leData(entrada);
             
             ClientePF c = new ClientePF(nome, telefone, endereco, email, 
                                         cpf, genero, educacao, dataNascimento);
@@ -224,8 +131,7 @@ public class Leitura {
                 return null;
             }
             System.out.print("Digite a data de fundação (dd/mm/aaaa): ");
-            String dataFundacaoString = entrada.nextLine();
-            LocalDate dataFundacao = formataData(dataFundacaoString);
+            LocalDate dataFundacao = leData(entrada);
             System.out.print("Digite o número de funcionários do cliente: ");
             int qtdeFuncionarios = Integer.parseInt(entrada.nextLine());
 
@@ -265,8 +171,7 @@ public class Leitura {
         System.out.print("Digite o email do condutor: ");
         String email = entrada.nextLine();
         System.out.print("Digite a data de nascimento do condutor: ");
-        String dataNascimentoString = entrada.nextLine();
-        LocalDate dataNascimento = formataData(dataNascimentoString);
+        LocalDate dataNascimento = leData(entrada);
 
         Condutor c = new Condutor(cpf, nome, telefone, endereco, email, dataNascimento);
         return c;
@@ -324,11 +229,9 @@ public class Leitura {
         Caso contrário, retorna null e indica o erro.*/
         System.out.println("--- Novo seguro ---");
         System.out.print("Digite a data de início do seguro (dd/mm/aaaa): ");
-        String dataInicioString = entrada.nextLine();
-        LocalDate dataInicio = formataData(dataInicioString);
+        LocalDate dataInicio = leData(entrada);
         System.out.print("Digite a data de término do seguro (dd/mm/aaaa): ");
-        String dataFimString = entrada.nextLine();
-        LocalDate dataFim = formataData(dataFimString);
+        LocalDate dataFim = leData(entrada);
 
         System.out.print("Digite o tipo de cliente associado ao seguro (PF ou PJ): ");
         String tipoCliente = entrada.nextLine();
@@ -380,10 +283,9 @@ public class Leitura {
         Caso contrário, retorna null e indica o erro.*/
         System.out.println("--- Novo sinistro ---");
         System.out.print("Digite a data do sinistro (dd/mm/aaaa): ");
-        String dataString = entrada.nextLine();
+        LocalDate data = leData(entrada);
         System.out.print("Digite o endereço do local do sinistro: ");
         String endereco = entrada.nextLine();
-        LocalDate data = formataData(dataString);
         System.out.print("Digite o CPF do condutor envolvido no sinistro: ");
         String cpf = entrada.nextLine();
         Condutor condutor = seguro.buscarCondutor(cpf);

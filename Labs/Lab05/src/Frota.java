@@ -61,9 +61,21 @@ public class Frota {
         return lista;
     }
 
+    public Veiculo buscarVeiculo(String placa) {
+        /* Busca, na lista de veículos, o veículo que tem a placa
+        dada como parâmetro.
+        Retorna o veículo se ele estiver cadastrado na lista.
+        Caso contrário, retorna null. */
+        for (Veiculo v : listaVeiculos) 
+            if (v.getPlaca().equals(placa))
+                return v;
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Code: " + this.code + "\n" +
-               "Quantidade de veículos na frota: " + this.listaVeiculos.size() + "\n";
+               "Quantidade de veículos na frota: " + this.listaVeiculos.size() + "\n" +
+               listarVeiculos() + "\n";
     }
 }
