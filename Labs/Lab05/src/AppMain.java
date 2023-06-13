@@ -291,12 +291,6 @@ public class AppMain {
         System.out.println("- Receita Total da seguradora " + seguradora1.getNome() +
                            " após as alterações finais: " + seguradora1.calcularReceita() + "\n");
 
-        // Listando os clientes da seguradora1
-        // System.out.println("------------------------------");
-        // System.out.println("Clientes de " + seguradora1.getNome() + ":");
-        // System.out.println(seguradora1.listarClientes("PF"));
-        // System.out.println(seguradora1.listarClientes("PJ"));
-
         System.out.println(seguradora1.listarTodosClientes());
 
         // Listando os seguros da seguradora
