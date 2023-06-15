@@ -27,7 +27,7 @@ public class Leitura {
                 dataValida = true;
             }
             catch (DateTimeParseException e) {
-                System.out.println("ERRO: Formato de data inválido. Insira a data novamente no formato dd/mm/aaaa. ");
+                System.out.println("ERRO: Formato de data inválido. Insira a data novamente no formato dd/mm/aaaa.");
                 dataValida = false;
             }
         } while(!dataValida);
@@ -296,6 +296,4 @@ public class Leitura {
         Sinistro s = new Sinistro(data, endereco, condutor, seguro);
         return s;
     }
-
-
 }

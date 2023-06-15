@@ -1,6 +1,4 @@
-// import java.util.Scanner;
 import java.util.ArrayList;
-// import java.time.LocalDate;
 
 public class AppMain {
     public static void main(String[] args) {

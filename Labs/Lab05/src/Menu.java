@@ -1,10 +1,10 @@
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Menu {
     public static String exibirMenu(){
         /* Exibe as operações do enum Operacoes no terminal. */
-        String telaOperacoes = "Que operação você deseja realizar?\n";
+        String telaOperacoes = "\nQue operação você deseja realizar?\n";
         int indice = 0;
         for (Operacoes operacao : Operacoes.values()) {
             indice++;
@@ -39,7 +39,18 @@ public class Menu {
         do {
             // System.out.println(exibirMenu());
             System.out.print(exibirMenu());
-            indice = Integer.parseInt(entrada.nextLine());
+            try {
+                indice = Integer.parseInt(entrada.nextLine());
+            }
+            catch (NumberFormatException e) {
+                System.out.println("ERRO: Entrada inválida!");
+                indice = 0;
+                continue;
+            }
+            if (indice < 1 || indice > 8) {
+                System.out.println("ERRO: Índice inválido!");
+                continue;
+            }
 
             Operacoes operacao;
             operacao = Operacoes.values()[indice-1];
