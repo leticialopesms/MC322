@@ -47,14 +47,17 @@ public class Menu {
                 indice = 0;
                 continue;
             }
-            if (indice < 1 || indice > 8) {
-                System.out.println("ERRO: Índice inválido!");
-                continue;
-            }
 
             Operacoes operacao;
-            operacao = Operacoes.values()[indice-1];
-
+            try {
+                operacao = Operacoes.values()[indice-1];
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("ERRO: Índice inválido!");
+                indice = 0;
+                continue;
+            }
+            
             String nomeSeguradora;
             Seguradora seguradora;
 
@@ -110,11 +113,24 @@ public class Menu {
         do enum SubOperacoes. */
         // System.out.println(exibirSubMenu(operacao));
         System.out.print(exibirSubMenu(operacao));
+        int subIndice;
 
-        int subIndice = Integer.parseInt(entrada.nextLine());
+        try {
+            subIndice = Integer.parseInt(entrada.nextLine());
+        }
+        catch (NumberFormatException e) {
+            System.out.println("ERRO: Entrada inválida!");
+            return;
+        }
 
         SubOperacoes subOperacao;
-        subOperacao = operacao.getSubMenu()[subIndice - 1];
+        try {
+            subOperacao = operacao.getSubMenu()[subIndice - 1];
+        }   
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ERRO: Índice inválido!");
+            return;
+        }
 
         String nome, identificador, code, placa;
         int id;
